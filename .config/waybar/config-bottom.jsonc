@@ -1,0 +1,29 @@
+{
+  "reload_style_on_change": true,
+  "layer": "top",
+  "position": "bottom",
+  "spacing": 0,
+  "height": 38,
+  "modules-left": [],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [],
+  "hyprland/window": {
+    "format": "<span foreground='#7aa2f7' weight='bold'>{class}</span>  <span foreground='#a9b1d6' alpha='30%'>│</span>  <span foreground='#c0caf5' weight='normal'>{title}</span>",
+    "rewrite": {
+      "": "Escritorio Omarchy",
+      "(.*) — Alacritty": "Alacritty · $1",
+      "(.*) — Code": "Code · $1",
+      "(.*) — kitty": "kitty · $1",
+      "(.*) — Chromium": "Chromium · $1",
+      "(.*) — Firefox": "Firefox · $1",
+      "(.*) — Discord": "Discord · $1",
+      "(.*) — Telegram": "Telegram · $1"
+    },
+    "on-click": "hyprctl dispatch toggleactivewindow",
+    "on-click-middle": "hyprctl dispatch cyclenext active",
+    "on-click-right": "hyprctl dispatch fullscreen 1",
+    "tooltip": true,
+    "tooltip-format": "{title}\n\n{class}",
+    "separate-outputs": true
+  }
+}

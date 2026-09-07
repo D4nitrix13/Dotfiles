@@ -147,6 +147,17 @@ tooltip {
 
 .left #custom-voxtype, .right #custom-voxtype { margin: 7.5px 0 0 0; min-width: 0; min-height: 12px; }
 
+#window {
+  padding: 0 14px;
+  font-weight: bold;
+  opacity: 0.85;
+}
+
+window#waybar.bottom {
+  margin: 0 6px 6px 6px;
+  border-radius: 8px;
+}
+
 #custom-expand-icon.vertical,
 .left #custom-expand-icon.horizontal,
 .right #custom-expand-icon.horizontal {
@@ -186,4 +197,38 @@ tooltip {
   min-width: 0;
   min-height: 12px;
   margin: 8.75px 0 0 0;
+}
+
+window#waybar.bottom {
+  background: transparent;
+  margin: 0 6px 8px 6px;
+}
+
+#window {
+  padding: 5px 18px;
+  margin: 0;
+  border-radius: 19px;
+  background: rgba(26, 27, 38, 0.85);
+  border: 1px solid rgba(169, 177, 214, 0.12);
+  font-size: 12px;
+  font-weight: 600;
+  color: #a9b1d6;
+}
+
+#window:hover {
+  background: rgba(26, 27, 38, 0.95);
+  border-color: rgba(122, 162, 247, 0.35);
+}
+
+tooltip {
+  background: #1a1b26;
+  border: 1px solid rgba(169, 177, 214, 0.15);
+  border-radius: 10px;
+}
+
+tooltip label {
+  color: #c0caf5;
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 11px;
+  padding: 2px 4px;
 }

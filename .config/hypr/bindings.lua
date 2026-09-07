@@ -10,7 +10,7 @@ o.bind("SUPER + SHIFT + ALT + R", "Clear reminders", "omarchy-reminder clear")
 o.bind(
 	"SUPER + CTRL + R",
 	"Reload Hyprland and Waybar",
-	"/usr/bin/hyprctl reload; /usr/bin/pkill waybar || true; /usr/bin/waybar >/dev/null 2>&1 &"
+	"/usr/bin/hyprctl reload; /usr/bin/pkill waybar || true; /usr/bin/waybar >/dev/null 2>&1 & /usr/bin/waybar -c /home/d4nitrix13/.config/waybar/config-bottom.jsonc >/dev/null 2>&1 &"
 )
 o.bind("SUPER + S", "Full screenshot to disk and clipboard", "/home/d4nitrix13/Scripts/screenshot-full-clipboard")
 o.bind(
