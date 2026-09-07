@@ -48,3 +48,11 @@
 --     column_width = 0.97,
 --   },
 -- })
+
+-- https://wiki.hypr.land/Configuring/Window-Rules/
+-- Make GTK file picker dialogs (used by browsers via xdg-desktop-portal)
+-- open wider and centered so all columns are visible.
+o.window("^(xdg-desktop-portal-gtk|file-chooser|org\\.gtk\\.gtk4\\.FileChooser|gtk4-filechooser|org\\.gtk\\.FileChooser)$", {
+  size = "1100 640",
+  center = true,
+})
