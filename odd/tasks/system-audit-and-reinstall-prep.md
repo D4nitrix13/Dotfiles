@@ -58,13 +58,16 @@ TDD mode: not applicable. No source code changes — configuration, manifests an
 ## Checklist
 
 - [x] T0 — Establish baseline: disk layout, package manager inventory, repository section count, thermal state
-- [ ] T1 — Free root space: clear pacman cache, remove orphaned packages, report reclaimable total
-- [ ] T2 — Update every package manager; record pre/post versions
-- [ ] T3 — Map every repository section: purpose, contents, dependencies, portability
-- [ ] T4 — Flag redundancies and Omarchy-coupled config with the portable replacement for each
-- [ ] T5 — Classify every installed package: keep / remove / optional, with reason
-- [ ] T6 — Write the audit to `docs/`, restore and version the thermal mitigation, refresh package manifests
-- [ ] T7 — Document the partition and swap plan for the reinstall
+- [ ] T1 — Free root space: clear pacman cache, remove orphaned packages, report reclaimable total *(blocked: needs the owner's sudo)*
+- [ ] T2 — Update every package manager; record pre/post versions *(blocked: needs the owner's sudo)*
+- [x] T3 — Map every repository section: purpose, contents, dependencies, portability
+- [x] T4 — Flag redundancies and Omarchy-coupled config with the portable replacement for each
+- [x] T5 — Classify every installed package: keep / remove / optional, with reason
+- [x] T6 — Write the audit to `docs/`, restore and version the thermal mitigation, refresh package manifests
+- [x] T7 — Document the partition and swap plan for the reinstall
+
+T3 through T7 were completed by a delegated writer that hit the token plan limit while producing the audit document. Its output was reviewed, verified and finished by the orchestrator: the `docs/README.md` index entry was added, both new scripts were made executable, and the missing `.gitignore` entries confirmed. Committed as `dc8c202` on `chore/system-audit-and-reinstall-prep`.
+
 
 ## Acceptance criteria
 
@@ -94,6 +97,11 @@ TDD mode: not applicable. No source code changes — configuration, manifests an
 - Ollama removed from Vulkan on the shared iGPU; screensaver (120 FPS `tte`) disabled.
 - fwupd installed; BIOS confirmed current.
 - Thermal regression found: mitigation lost, governor `performance`, 81 °C at idle.
+- Full repository audit written to `docs/auditoria-2026-10-24.md` (589 lines, 12 sections).
+- Thermal mitigation recovered and versioned under `Utils/systemd/`.
+- Portable brightness-dim script versioned under `Utils/scripts/display-brightness`.
+- Package manifests regenerated from live state; the three `omarchy-*` packages split into `packages/pacman/omarchy-only.txt`.
+- `.gitignore` extended with `.config/opencode/service.json` and `.config/chromium-headless/`.
 
 ### Verification evidence
 
@@ -101,11 +109,16 @@ TDD mode: not applicable. No source code changes — configuration, manifests an
 - `GRUB_CMDLINE_LINUX_DEFAULT` contains the three `amdgpu` parameters
 - `systemctl show ollama.service -p Environment` includes `OLLAMA_VULKAN=false`
 - `fwupdmgr get-updates` reports System Firmware at the latest version
-- `ls /usr/local/sbin/cpufreq-stabilize.sh` → not found; `lsmod`/`pacman -Q` confirm no thermal daemon
+- `packages/pacman/installed.txt` contains zero `omarchy-` entries; `omarchy-only.txt` holds exactly three
+- `packages/npm/installed.txt` contains no Node-bundled package
+- `bash -n` passes on `Utils/systemd/cpufreq-stabilize.sh` and `Utils/scripts/display-brightness`
+- The plaintext password in `.config/opencode/service.json` was confirmed never to have entered git history
+- `git show --stat dc8c202` stages only the intended 14 files
 
 ## Next step
 
-Run T1 and T2 with the user executing the privileged commands, then delegate T3 and T4 to a single mapping worker.
+The owner runs the privileged commands for T1 and T2, plus the thermal mitigation installation, then the manifests are regenerated one final time against the updated package set. The legacy X11 estate and the remaining Omarchy coupling are not touched until the decisions in section 11 of the audit are answered.
+
 
 ## Forecast
 
