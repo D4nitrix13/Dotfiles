@@ -9,6 +9,7 @@ alsa-plugins
 alsa-utils
 amd-ucode
 android-tools
+antiword
 arp-scan
 asdcontrol
 awesome-terminal-fonts
@@ -17,6 +18,7 @@ base
 base-devel
 bash-completion
 bash-language-server
+bc
 bind
 blueman
 bluetui
@@ -49,6 +51,7 @@ cachyos-zsh-config
 caddy
 calcurse
 cantarell-fonts
+catdoc
 cbatticon
 chromium
 chwd
@@ -108,6 +111,7 @@ foomatic-db-nonfree-ppds
 foomatic-db-ppds
 foot
 fsarchiver
+fwupd
 gcc-fortran
 gdm
 ghostscript
@@ -173,8 +177,10 @@ gvfs-wsdd
 hdparm
 hplip
 htop
+hunspell-es_any
 hwdetect
 hwinfo
+hyphen-es
 hypridle
 hyprland
 hyprland-guiutils
@@ -212,6 +218,7 @@ libgsf
 libopenraw
 libqalculate
 libreoffice-fresh
+libreoffice-fresh-es
 linux-cachyos
 linux-cachyos-headers
 linux-cachyos-lts
@@ -257,6 +264,7 @@ nano-syntax-highlighting
 nautilus
 nautilus-python
 neovim
+net-tools
 netctl
 networkmanager
 networkmanager-openvpn
@@ -276,11 +284,7 @@ nwg-look
 obs-studio
 obsidian
 ollama
-omarchy-keyring
-omarchy-nvim
-omarchy-walker
 opencl-mesa
-opencode
 openssh
 optiimage
 optipng
@@ -288,11 +292,13 @@ orca
 os-prober
 pacman-contrib
 pamixer
+pandoc-cli
 papers
 papirus-icon-theme
 parsec-bin
 paru
 pavucontrol
+pdfgrep
 perl
 php
 php-gd
@@ -383,6 +389,7 @@ tecla
 tesseract
 tesseract-data-eng
 texinfo
+thunar
 timew
 tmux
 tobi-try

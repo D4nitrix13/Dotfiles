@@ -1,0 +1,3 @@
+omarchy-keyring
+omarchy-nvim
+omarchy-walker

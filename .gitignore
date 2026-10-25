@@ -16,6 +16,7 @@
 # =========================================================
 # opencode: track config + themes, ignore everything else
 # =========================================================
+.config/opencode/service.json
 .config/opencode/node_modules/
 .config/opencode/package.json
 .config/opencode/package-lock.json
@@ -186,6 +187,7 @@ VirtualBox VMs/
 .config/vivaldi/
 .config/vivaldi-snapshot/
 .config/chromium/
+.config/chromium-headless/
 
 # 1Password secrets / state
 .config/1Password/

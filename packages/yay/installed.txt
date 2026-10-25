@@ -5,10 +5,12 @@ hadolint-bin
 k6
 mailpit-bin
 mdbtools
+monique
 ptpython
 python-pyodbc
 redisinsight-bin
 rstudio-desktop-bin
+ryzenadj
 ttf-ms-fonts
 ttf-vista-fonts
 wlroots-asan-git

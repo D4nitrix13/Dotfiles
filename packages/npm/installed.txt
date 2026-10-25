@@ -1,6 +1,12 @@
-corepack
-node-gyp
-nopt
-npm
-semver
+@astrojs/language-server
+@colbymchenry/codegraph
+@microsoft/compose-language-service
+@playwright/cli
+@vtsls/language-server
+emmet-ls
+intelephense
+markdownlint-cli
+prettier-plugin-astro
 serve
+typescript
+typescript-language-server

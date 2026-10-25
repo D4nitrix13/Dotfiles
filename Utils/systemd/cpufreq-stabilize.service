@@ -1,0 +1,14 @@
+[Unit]
+Description=Aplica governor powersave + cap 3GHz + EPP balance_power
+After=systemd-modules-load.service
+Documentation=https://wiki.archlinux.org/title/CPU_frequency_scaling
+ConditionVirtualization=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/cpufreq-stabilize.sh
+RemainAfterExit=yes
+StandardOutput=journal
+
+[Install]
+WantedBy=multi-user.target

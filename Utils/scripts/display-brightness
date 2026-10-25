@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+# Dim or restore the internal display backlight without disabling the display pipe.
+#
+# Disabling the eDP CRTC can wedge the AMD Barcelo/Vega display firmware (DMUB).
+# The resulting black screen cannot be recovered without a forced power-off.
+# Keeping the pipe active and changing only the backlight avoids that failure.
+
+set -euo pipefail
+
+usage() {
+  printf 'Usage: %s <off|on>\n' "$(basename "$0")" >&2
+}
+
+die() {
+  printf 'Error: %s\n' "$1" >&2
+  exit 1
+}
+
+[[ $# -eq 1 ]] || {
+  usage
+  exit 2
+}
+
+action="$1"
+case "${action}" in
+  off | on) ;;
+  *)
+    usage
+    exit 2
+    ;;
+esac
+
+command -v brightnessctl >/dev/null 2>&1 || die "brightnessctl is required"
+
+device=""
+for candidate in \
+  /sys/class/backlight/amdgpu_bl* \
+  /sys/class/backlight/intel_backlight \
+  /sys/class/backlight/acpi_video* \
+  /sys/class/backlight/*; do
+  if [[ -e "${candidate}" ]]; then
+    device="${candidate##*/}"
+    break
+  fi
+done
+
+[[ -n "${device}" ]] || die "no backlight device was found"
+
+brightness_file="/sys/class/backlight/${device}/brightness"
+[[ -r "${brightness_file}" ]] || die "cannot read brightness for ${device}"
+
+current_brightness="$(<"${brightness_file}")"
+
+if [[ "${action}" == "off" ]]; then
+  if (( current_brightness > 0 )); then
+    # Save the current non-zero brightness exactly once so it can be restored.
+    brightnessctl -d "${device}" -s set 0 >/dev/null 2>&1
+  else
+    # A repeated off must not overwrite the saved restore value with zero.
+    brightnessctl -d "${device}" set 0 >/dev/null 2>&1
+  fi
+  exit 0
+fi
+
+# Restore the brightness value saved by brightnessctl.
+brightnessctl -d "${device}" -r >/dev/null 2>&1 || true
+current_brightness="$(<"${brightness_file}")"
+
+if (( current_brightness == 0 )); then
+  # Keep the panel usable when no usable restore value is available.
+  brightnessctl -d "${device}" set 40% >/dev/null 2>&1
+fi
