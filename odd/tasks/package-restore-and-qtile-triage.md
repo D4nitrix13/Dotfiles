@@ -63,6 +63,7 @@ TDD mode: not applicable. The deliverable is a shell script and a report, not ap
 - [x] T11 — Build AUR packages with the system toolchain, not Homebrew's
 - [x] T12 — Move Homebrew to the end of the PATH in the session scripts
 - [x] T13 — Drop the duplicated and unbuildable AUR packages
+- [x] T14 — Audit the installed set for redundant tools and purge the noise
 
 ## Acceptance criteria
 
@@ -179,6 +180,49 @@ categorization exactly.
 `classifyPackages.py --sync` now rewrites the header of every category file
 from its own body, so the declared count and the install command cannot
 drift from the packages listed.
+
+### Redundancy audit
+
+The owner asked to remove the tools that duplicate each other, keeping the
+GNOME one in each family. The audit found the duplicates in the desktop menu
+rather than in the package list: 137 visible entries, of which 24 packages
+covered a role that another package already covered.
+
+| Family | Kept | Removed |
+|--------|------|---------|
+| File manager | nautilus | thunar, thunar-archive-plugin, cachyos-qtile-settings |
+| Terminal | alacritty | foot, ghostty, kitty, xterm |
+| Text editor | neovim, gnome-text-editor | vim, micro, nano, nano-syntax-highlighting, cachyos-micro-settings |
+| Image viewer | loupe | imv |
+| System monitor | btop, gnome-system-monitor | htop, glances |
+| Password manager | 1password | keepassxc |
+| Browser | firefox | chromium, epiphany |
+| Java | jdk-openjdk | jre21-openjdk |
+| AUR helper | paru | yay |
+| Image compressor | optiimage | optipng, pngquant |
+| Shell | fish | zsh, oh-my-zsh-git, 5 zsh plugins, cachyos-zsh-config |
+
+Two findings shaped the outcome. First, `cachyos-qtile-settings` only writes
+into `/etc/skel`, the template for new accounts, and never touches the
+existing `~/.config/qtile`; it pinned 30 packages for nothing. Second, the
+owner's own keybindings used several of the tools marked as redundant:
+`mod+shift+f` launched thunar, `mod+Return` launched alacritty and the panel
+widget ran `alacritty -e htop`. Removing them without repointing would have
+left broken shortcuts.
+
+Every reference was repointed before the removal:
+
+- qtile: `mod+shift+f` now launches nautilus, the floating rule for the file
+  manager dialog now matches Nautilus, and the memory widget runs btop.
+- hyprland: `$terminal` is alacritty and the scroll rules only match Alacritty.
+- spectrwm: the file manager entry is nautilus.
+
+`jpegoptim` stays because `optiimage` depends on it. `gpsd`, `v4l-utils`,
+`hplip` and `xdg-terminal-exec` also stay: other packages require them.
+
+The manifests went from 464 to 443 packages. 21 of the removed packages were
+in the manifest; the other 9 were dependencies of `cachyos-zsh-config` and
+leave with it.
 
 ### Verification evidence
 

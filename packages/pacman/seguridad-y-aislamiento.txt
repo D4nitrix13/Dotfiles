@@ -2,14 +2,13 @@
 # Gestores de contrasenas, cortafuegos, aislamiento de procesos y control parental.
 #
 # Categoria: seguridad-y-aislamiento
-# Paquetes: 13
+# Paquetes: 12
 #
 # Instalables con: sudo pacman -S --needed 1password-beta 1password-cli firejail ...
 1password-beta
 1password-cli
 firejail
 gnome-keyring
-keepassxc
 malcontent
 orca
 pamixer

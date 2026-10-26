@@ -2,13 +2,12 @@
 # Interpreters, compiladores y gestores de versiones de los lenguajes usados.
 #
 # Categoria: lenguajes-y-runtimes
-# Paquetes: 40
+# Paquetes: 39
 #
 # Instalables con: sudo pacman -S --needed composer dotnet-runtime-9.0 jdk-openjdk ...
 composer
 dotnet-runtime-9.0
 jdk-openjdk
-jre21-openjdk
 lua-lpeg
 lua-luv
 luarocks

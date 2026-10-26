@@ -2,7 +2,7 @@
 # Servidor X11, Xorg y las herramientas de linea de comandos que usa Qtile.
 #
 # Categoria: x11-y-qtile
-# Paquetes: 10
+# Paquetes: 9
 #
 # Instalables con: sudo pacman -S --needed evtest feh i3lock ...
 evtest
@@ -14,4 +14,3 @@ xorg-server-xephyr
 xorg-xdpyinfo
 xorg-xrandr
 xorg-xset
-xterm

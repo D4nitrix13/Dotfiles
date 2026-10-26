@@ -98,7 +98,7 @@ keys: List[Key] = [
         # Nvim
         ([mod], "n", lazy.spawn("/bin/alacritty -e /bin/nvim")),
         # File Explorer
-        ([mod, "shift"], "f", lazy.spawn("/bin/thunar")),
+        ([mod, "shift"], "f", lazy.spawn("/bin/nautilus")),
         # Terminal
         ([mod], "Return", lazy.spawn("/bin/alacritty")),
         

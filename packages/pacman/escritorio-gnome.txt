@@ -2,7 +2,7 @@
 # GNOME, sus aplicaciones, portales de escritorio, temas e iconos.
 #
 # Categoria: escritorio-gnome
-# Paquetes: 62
+# Paquetes: 61
 #
 # Instalables con: sudo pacman -S --needed aether baobab cbatticon ...
 aether
@@ -60,7 +60,6 @@ papirus-icon-theme
 rofi
 sddm
 sushi
-thunar
 xdg-desktop-portal-gnome
 xdg-user-dirs
 xdg-utils

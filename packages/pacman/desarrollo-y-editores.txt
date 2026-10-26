@@ -2,7 +2,7 @@
 # Editores, servidores de lenguaje, depuradores y herramientas de desarrollo.
 #
 # Categoria: desarrollo-y-editores
-# Paquetes: 36
+# Paquetes: 31
 #
 # Instalables con: sudo pacman -S --needed bash-language-server claude-code dockerfile-language-server ...
 bash-language-server
@@ -16,10 +16,7 @@ lldb
 lua-language-server
 marksman
 meld
-micro
 mypy
-nano
-nano-syntax-highlighting
 neovim
 ollama
 paru
@@ -33,11 +30,9 @@ stylua
 taplo-cli
 tree-sitter-cli
 ty
-vim
 visual-studio-code-bin
 vscode-css-languageserver
 vscode-html-languageserver
 vscode-json-languageserver
 xmlstarlet
 yaml-language-server
-yay

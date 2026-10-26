@@ -222,7 +222,7 @@ primary_widgets: List[Any] = [
         **base(bg="color6"),
         format="{MemUsed: .2f}{mm} /{MemTotal: .2f}{mm}",
         mouse_callbacks={
-            "Button1": lambda: cast(Qtile, qtile).spawn("/bin/alacritty -e htop")
+            "Button1": lambda: cast(Qtile, qtile).spawn("/bin/alacritty -e btop")
         },
         fmt="{}",
         update_interval=1,

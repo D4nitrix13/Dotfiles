@@ -3,7 +3,7 @@
 # Este archivo NO se edita a mano. Se genera desde los archivos por
 # categoria con: Scripts/classifyPackages.py --sync
 #
-# Paquetes: 464
+# Paquetes: 443
 #
 1password-beta
 1password-cli
@@ -43,7 +43,6 @@ cachyos-hello
 cachyos-hooks
 cachyos-kernel-manager
 cachyos-keyring
-cachyos-micro-settings
 cachyos-mirrorlist
 cachyos-packageinstaller
 cachyos-plymouth-bootanimation
@@ -53,13 +52,11 @@ cachyos-settings
 cachyos-v3-mirrorlist
 cachyos-v4-mirrorlist
 cachyos-wallpapers
-cachyos-zsh-config
 caddy
 calcurse
 cantarell-fonts
 catdoc
 cbatticon
-chromium
 chwd
 claude-code
 cliamp
@@ -89,7 +86,6 @@ duf
 e2fsprogs
 efibootmgr
 efitools
-epiphany
 eslint
 eslint-language-server
 espeak-ng
@@ -115,17 +111,14 @@ foomatic-db-gutenprint-ppds
 foomatic-db-nonfree
 foomatic-db-nonfree-ppds
 foomatic-db-ppds
-foot
 fsarchiver
 fwupd
 gcc-fortran
 gdm
 ghostscript
-ghostty
 gifsicle
 git
 github-cli
-glances
 gnome-backgrounds
 gnome-calculator
 gnome-calendar
@@ -182,7 +175,6 @@ gvfs-smb
 gvfs-wsdd
 hdparm
 hplip
-htop
 hunspell-es_any
 hwdetect
 hwinfo
@@ -197,7 +189,6 @@ hyprshot
 hyprsunset
 i3lock
 impala
-imv
 inetutils
 iperf3
 ipp-usb
@@ -205,12 +196,9 @@ iwd
 jdk-openjdk
 jfsutils
 jpegoptim
-jre21-openjdk
 kdenlive
-keepassxc
 kernel-modules-hook
 kind
-kitty
 kubectl
 kvantum-qt5
 lazydocker
@@ -255,7 +243,6 @@ mdadm
 meld
 mesa
 mesa-utils
-micro
 minikube
 mise
 mkinitcpio
@@ -265,8 +252,6 @@ mpv
 mpv-mpris
 mtools
 mypy
-nano
-nano-syntax-highlighting
 nautilus
 nautilus-python
 neovim
@@ -293,7 +278,6 @@ ollama
 opencl-mesa
 openssh
 optiimage
-optipng
 orca
 os-prober
 pacman-contrib
@@ -318,7 +302,6 @@ pkgfile
 playerctl
 plocate
 plymouth
-pngquant
 pnpm
 polkit-gnome
 poppler-glib
@@ -395,7 +378,6 @@ tecla
 tesseract
 tesseract-data-eng
 texinfo
-thunar
 timew
 tmux
 tree
@@ -426,7 +408,6 @@ usbutils
 uv
 uwsm
 valkey
-vim
 visual-studio-code-bin
 vlc-plugins-all
 vscode-css-languageserver
@@ -463,9 +444,7 @@ xorg-xdpyinfo
 xorg-xrandr
 xorg-xset
 xournalpp
-xterm
 yaml-language-server
 yaru-icon-theme
-yay
 yelp
 zoxide
