@@ -125,7 +125,7 @@ fi
 # /bin/pulseaudio --start
 
 # Get Active Network Interface
-/bin/ip -o -4 addr show | /bin/awk '{print $2}' | /bin/grep -iPw '^enp.*?$' --color=none | /bin/tee ~/.config/qtile/interface.txt >/dev/null
+/bin/ip -o -4 addr show | /bin/awk '{print $2}' | /bin/grep -E '^(enp|wlp|wlan).*' --color=none | /bin/tee ~/.config/qtile/interface.txt >/dev/null
 
 # Launch xautolock to automatically lock the screen after 15 minutes of inactivity.
 # It uses a custom script located at ~/Scripts/lock to perform the actual lock.
