@@ -25,10 +25,10 @@ Attributes:
 BAR_FONT: str = "Ubuntu Nerd Font Bold Italic"
 # Sixteen pixels keeps regular bar text legible without crowding adjacent widgets.
 BAR_FONTSIZE: int = 16
-# Thirty pixels fits the group: 18 + 2*2 + 2*1 + 2*2 = 28 pixels.
-BAR_SIZE: int = 30
-# Eighteen pixels keeps workspace labels readable within the 30-pixel bar.
-GROUP_FONTSIZE: int = 18
+# Thirty-six pixels fits the workspace group: 25 + 2*2 + 2*1 + 2*2 = 35 pixels.
+BAR_SIZE: int = 36
+# Twenty-five pixels keeps the workspace labels readable at a glance.
+GROUP_FONTSIZE: int = 25
 # Two pixels adds vertical breathing room while preserving the bar height budget.
 GROUP_PADDING_Y: int = 2
 # Two pixels centers the group and leaves space for its one-pixel border.
