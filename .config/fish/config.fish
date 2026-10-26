@@ -36,6 +36,13 @@ end
 # Only eval brew shellenv if brew is installed (not on Termux)
 if test $IS_TERMUX -eq 0; and set -q BREW_BIN; and test -f $BREW_BIN
     eval ($BREW_BIN shellenv)
+    # brew shellenv antepone Homebrew al PATH, lo que deja sus binutils (nm,
+    # ld, ar, ranlib, strip) por delante de los del sistema y rompe las
+    # compilaciones de autotools: el nm de Homebrew no entiende la opcion -B,
+    # la comprobacion de configure falla y libtool genera una orden con una
+    # etapa de tuberia vacia. Se conservan las variables de Homebrew y se
+    # devuelve el PATH a su orden, con Homebrew al final.
+    set -gx PATH (string join ':' (string split ':' $PATH | string match -v -r '^/home/linuxbrew'))':/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin'
 end
 
 # Start tmux/zellij
