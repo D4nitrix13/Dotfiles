@@ -149,9 +149,21 @@ TDD: no aplica. No hay suite de tests para una configuración de window manager 
 - Las tres rutas del wallpaper en `autostart.sh` no existen, y `/usr/share/backgrounds/Wallpapers/` está vacío.
 - El `mypy` del `PATH` (`~/.local/bin/mypy`, build compilado de pipx) no alcanza el site-packages del sistema, no resuelve `libqtile` y, con `ignore_missing_imports = True`, convierte todo en `Any`: el "Success" es un verde falso. El check real es `python -m mypy .`, que encuentra 3 errores genuinos.
 
+### Revisión nativa
+
+La revisión por development receipt-driven quedó en estado parcial, no aprobado.
+
+- `gentle-ai review assess` clasificó el slice como `high_risk`, por `process_boundary` y `shell_source` en `.config/qtile/autostart.sh`.
+- Se abrió la transacción `review-99059d8651084e75` con las cuatro lentes y un presupuesto de corrección de 200 líneas.
+- Tres lentes entraron y fueron admitidas: riesgo, resiliencia y legibilidad.
+- La lente de fiabilidad no produjo salida. El actor devolvió resultado vacío cuatro veces seguidas, y el `review status` siguió reofreciendo el mismo slot. El fallo es del actor cliente que no emite salida, no de un rechazo del contrato: el resto de las lentes funcionó con el mismo transporte.
+- La transacción sigue en estado `reviewing`, con la captura de fiabilidad pendiente. No hay aprobación ni recibo.
+
+Los tres hallazgos de las lentes admitidas se pueden consultar con `gentle-ai review inspect-authority --cwd /home/d4nitrix13 --lineage review-99059d8651084e75`.
+
 ## Next step
 
-Reiniciar qtile (`mod+ctrl+r`) para cargar la configuración nueva y comprobar en pantalla que el texto de las barras se ve con el tamaño y la tipografía correctos, que el indicador de workspaces ya no se recorta y que el fondo de pantalla se aplica. La entrega (commit, push, pull request) queda como decisión del propietario.
+Reiniciar qtile (`mod+ctrl+r`) para cargar la configuración nueva y comprobar en pantalla que el texto de las barras se ve con el tamaño y la tipografía correctos, que el indicador de workspaces ya no se recorta y que el fondo de pantalla se aplica. La entrega (commit, push, pull request) queda como decisión del propietario, igual que la revisión pendiente.
 
 Pendiente de reportar, fuera del alcance de este trabajo: `~/Scripts/getRandomBackground.sh` no existe y tanto `.profile` como `.xsession` lo invocan con ese nombre.
 
