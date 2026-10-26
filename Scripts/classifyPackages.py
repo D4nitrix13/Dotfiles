@@ -109,6 +109,23 @@ DESCRIPCIONES = {
     "impresion-y-otros": "Soporte de impresoras y paquetes sin uso claro.",
 }
 
+# Descripciones que solo se aplican a un gestor, cuando el mismo nombre de
+# categoria significa otra cosa en otro gestor.
+DESCRIPCIONES_POR_GESTOR = {
+    "pipx": {
+        "bases-de-datos": "Controladores y clientes de bases de datos, instalados desde PyPI.",
+    },
+}
+
+
+def descripcion_de(categoria: str, gestor: str) -> str:
+    """Devuelve la descripcion de una categoria, segun el gestor."""
+    propia = DESCRIPCIONES_POR_GESTOR.get(gestor, {}).get(categoria)
+    if propia:
+        return propia
+    return DESCRIPCIONES.get(categoria, "Paquetes agrupados por categoria.")
+
+
 # Las reglas se evaluan en orden: gana la primera que coincide.
 REGLAS: dict[str, list[tuple[str, list[str]]]] = {
     "pacman": [
@@ -296,6 +313,7 @@ REGLAS: dict[str, list[tuple[str, list[str]]]] = {
     ],
     "pipx": [
         ("calidad-de-codigo", [r"^mypy$"]),
+        ("bases-de-datos", [r"^pyodbc$"]),
         ("entornos-y-gestores", [r"^pipenv$", r"^uv$"]),
         ("terminal-interactivo", [r"^ptpython$"]),
         ("criptografia", [r"^pycrypy$"]),
@@ -352,7 +370,7 @@ def escribir_categoria(ruta: Path, categoria: str, paquetes: list[str], gestor: 
     muestra = " ".join(paquetes[:3]) + (" ..." if len(paquetes) > 3 else "")
     cabecera = CABECERA.format(
         titulo=categoria.replace("-", " ").capitalize(),
-        descripcion=DESCRIPCIONES.get(categoria, "Paquetes agrupados por categoria."),
+        descripcion=descripcion_de(categoria, gestor),
         categoria=categoria,
         total=len(paquetes),
         comando=COMANDOS[gestor],
@@ -427,10 +445,28 @@ def paquetes_de_categorias(gestor: str) -> list[str]:
     return suma
 
 
+def reescribir_cabecera(gestor: str, ruta: Path, paquetes: list[str]) -> None:
+    """Reescribe la cabecera de un archivo de categoria a partir de su cuerpo."""
+    cabecera = CABECERA.format(
+        titulo=ruta.stem.replace("-", " ").capitalize(),
+        descripcion=descripcion_de(ruta.stem, gestor),
+        categoria=ruta.stem,
+        total=len(paquetes),
+        comando=COMANDOS[gestor],
+        muestra=" ".join(paquetes[:3]) + (" ..." if len(paquetes) > 3 else ""),
+    )
+    ruta.write_text(cabecera + "\n".join(sorted(paquetes)) + "\n")
+
+
 def ejecutar_sincronizacion() -> int:
-    """Regenera el manifiesto agregado de cada gestor a partir de las categorias."""
+    """Regenera las cabeceras y el manifiesto agregado de cada gestor."""
     fallos = 0
     for gestor in GESTORES:
+        for archivo in sorted((PAQUETES_DIR / gestor).glob("*.txt")):
+            if archivo.name == "installed.txt":
+                continue
+            paquetes = leer_manifiesto(archivo)
+            reescribir_cabecera(gestor, archivo, paquetes)
         paquetes = paquetes_de_categorias(gestor)
         if not paquetes:
             continue

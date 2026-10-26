@@ -66,7 +66,13 @@ export QT_STYLE_OVERRIDE=kvantum
 export PATH="$HOME/.local/share/gem/ruby/3.4.0/bin:$PATH"
 
 # Linuxbrew
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+# Se coloca al final del PATH a proposito. Homebrew antepone sus binutils
+# (nm, ld, ar, ranlib, strip, objcopy) a los del sistema, y eso rompe las
+# compilaciones de autotools: el nm de Homebrew no entiende la opcion -B, la
+# comprobacion de configure falla y libtool genera una orden con una etapa de
+# tuberia vacia. El interprete de Python del sistema trae el mismo numpy y el
+# mismo pip, de modo que no se pierde nada al moverlo.
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
 
 # Scripts
 export PATH="$HOME/Scripts:$PATH"

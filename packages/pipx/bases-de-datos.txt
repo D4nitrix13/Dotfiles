@@ -1,0 +1,8 @@
+# Bases de datos
+# Controladores y clientes de bases de datos, instalados desde PyPI.
+#
+# Categoria: bases-de-datos
+# Paquetes: 1
+#
+# Instalables con: pipx install pyodbc
+pyodbc

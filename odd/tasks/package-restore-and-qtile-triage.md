@@ -61,6 +61,8 @@ TDD mode: not applicable. The deliverable is a shell script and a report, not ap
 - [x] T9 — Resolve the rustup/rust conflict instead of aborting the transaction
 - [x] T10 — Remove conflicting packages together with their dependents
 - [x] T11 — Build AUR packages with the system toolchain, not Homebrew's
+- [x] T12 — Move Homebrew to the end of the PATH in the session scripts
+- [x] T13 — Drop the duplicated and unbuildable AUR packages
 
 ## Acceptance criteria
 
@@ -140,13 +142,44 @@ After the mirror fix, two independent problems remained:
   now forces `LC_ALL=C`. This one would have silently reintroduced the
   rustup failure.
 
+### Homebrew in the session PATH
+
+The owner pointed out that the PATH is configured in `~/.xsession`, not in
+`~/.zshrc`. Two files put Homebrew first: `~/.xsession` and `~/.profile`.
+The session PATH is built by `/etc/ly/setup.sh`, which sources `/etc/profile`
+and then `~/.profile` for the fish shell, so both had to be fixed.
+
+After the change, in a simulated fresh session, `/usr/bin` lands at position
+34 and Homebrew at 43: `nm`, `ld`, `ar`, `ranlib`, `strip` and `objcopy`
+resolve to the system binutils, `brew` stays reachable, and `python3` becomes
+the system 3.14, which already carries the same numpy 2.5.4 and the same pip
+26.2.2 that Homebrew had. Only `z3` stops being importable, and it is
+available through `pip install z3-solver` if it is ever needed.
+
+### Packages dropped from the AUR
+
+| Package | Reason |
+|---------|--------|
+| `ptpython` | Already in the pipx manifest, and the PyPI wheel needs no compilation. |
+| `python-pyodbc` | Replaced by `pyodbc` in pipx, which publishes a manylinux wheel for Python 3.14. |
+| `wlroots-asan-git` | A debugging build from git, which by definition cannot be precompiled. |
+
+`pyodbc` was added to the pipx manifest under a new `bases-de-datos`
+category. The classification rules were updated to match, and the round trip
+was verified: `--split` from the flat manifest reproduces the current
+categorization exactly.
+
+`classifyPackages.py --sync` now rewrites the header of every category file
+from its own body, so the declared count and the install command cannot
+drift from the packages listed.
+
 ### Verification evidence
 
 - `pacman -Qq` returns 1109 packages; the diff against `packages/pacman/installed.txt` yields 268 missing.
 - `pacman -Si` confirms `python-filelock` is in `extra`, which repairs pipx.
 - `pacman -Si` and `yay -Si` both fail for `asdcontrol`, `tobi-try` and the three `omarchy-*` packages.
 - The union of the category files of every manager is byte-identical to the original flat manifests, except for `asdcontrol` and `tobi-try`, which moved to `packages/pacman/excluidos/no-disponibles.txt`. Verified for all six managers.
-- `Scripts/classifyPackages.py --split` reproduces the exact same categorization from the original flat manifests, so the reorganization is deterministic rather than a one-off edit.
+- `Scripts/classifyPackages.py --split` reproduces the exact same categorization from the flat manifests, so the reorganization is deterministic rather than a one-off edit. The round trip was verified after every change to the manifests: the flat list derived from the category files, fed back through `--split`, reproduces the same files.
 - `Scripts/classifyPackages.py --verify` reports OK for all six managers.
 - The owner ran the installer during the session: 905 pacman packages and 11 of the 13 AUR packages from the pacman manifest were installed.
 - `yay -Si hyprland-preview-share-picker-git` succeeds, confirming the rename target.

@@ -89,14 +89,14 @@ ni en el AUR. La razon queda registrada en
 | `wayland-hyprland` | 23 | Hyprland, su ecosistema Wayland, barras y portales. |
 | `x11-y-qtile` | 10 | Servidor X11, Xorg y las herramientas que usa Qtile. |
 
-### yay (16 paquetes, 4 categorias)
+### yay (13 paquetes, 4 categorias)
 
 | Categoria | Paquetes | Que agrupa |
 |-----------|----------|------------|
 | `editores-y-escritorio` | 3 | Editores y componentes de escritorio del AUR. |
 | `impresion-y-otros` | 2 | Soporte de impresoras y paquetes sin uso claro. |
-| `red-y-devops` | 8 | Herramientas de red, observabilidad y desarrollo. |
-| `utilidades-y-terminal` | 3 | Utilidades graficas y de terminal del AUR. |
+| `red-y-devops` | 7 | Herramientas de red, observabilidad y desarrollo. |
+| `utilidades-y-terminal` | 1 | Utilidades graficas y de terminal del AUR. |
 
 ### npm (12 paquetes, 2 categorias)
 
@@ -112,10 +112,11 @@ ni en el AUR. La razon queda registrada en
 | `terminal-y-multiplicadores` | 1 | Multiplicadores de terminal y editores de sesiones. |
 | `utilidades` | 2 | Utilidades de linea de comandos. |
 
-### pipx (5 paquetes, 4 categorias)
+### pipx (6 paquetes, 5 categorias)
 
 | Categoria | Paquetes | Que agrupa |
 |-----------|----------|------------|
+| `bases-de-datos` | 1 | Controladores y clientes de bases de datos. |
 | `calidad-de-codigo` | 1 | Analizadores estaticos y verificadores de tipos. |
 | `criptografia` | 1 | Utilidades de cifrado y gestion de secretos. |
 | `entornos-y-gestores` | 2 | Entornos virtuales y gestores de dependencias. |
@@ -126,6 +127,20 @@ ni en el AUR. La razon queda registrada en
 | Categoria | Paquetes | Que agrupa |
 |-----------|----------|------------|
 | `utilidades-de-red` | 1 | Aplicaciones de red instaladas como Flatpak. |
+
+## Que se quito del AUR y por que
+
+Tres paquetes del AUR se retiraron del manifiesto el 26 de octubre de 2026:
+
+| Paquete | Motivo |
+|---------|--------|
+| `ptpython` | Ya se instala con pipx, y la rueda de PyPI no necesita compilacion. |
+| `python-pyodbc` | Sustituido por `pyodbc` en pipx, que tiene rueda manylinux para Python 3.14. |
+| `wlroots-asan-git` | Es una build de depuracion desde git, que por definicion no puede ser precompilada. |
+
+De los 13 que quedan, 5 son variantes `-bin` y 2 son fuentes de tipografias:
+se descargan tal cual. Los 6 restantes se compilan, y ninguno tiene
+alternativa en los repositorios oficiales.
 
 ## Nota sobre `pacman` frente a `yay`
 

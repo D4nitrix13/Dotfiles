@@ -3,7 +3,7 @@
 # Este archivo NO se edita a mano. Se genera desde los archivos por
 # categoria con: Scripts/classifyPackages.py --sync
 #
-# Paquetes: 16
+# Paquetes: 13
 #
 epson-inkjet-printer-escpr
 epson-inkjet-printer-escpr2
@@ -13,11 +13,8 @@ k6
 mailpit-bin
 mdbtools
 monique
-ptpython
-python-pyodbc
 redisinsight-bin
 rstudio-desktop-bin
 ryzenadj
 ttf-ms-fonts
 ttf-vista-fonts
-wlroots-asan-git

@@ -3,10 +3,11 @@
 # Este archivo NO se edita a mano. Se genera desde los archivos por
 # categoria con: Scripts/classifyPackages.py --sync
 #
-# Paquetes: 5
+# Paquetes: 6
 #
 mypy
 pipenv
 ptpython
 pycrypy
+pyodbc
 uv

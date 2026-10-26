@@ -262,6 +262,12 @@ listar-atajos-de-teclado-omarchy.md
 prompt-para-chamba.md
 
 # =========================================================
+# Python: bytecode de los scripts de Scripts/
+# =========================================================
+__pycache__/
+*.py[cod]
+
+# =========================================================
 # Exceptions: packages
 # =========================================================
 !packages/
