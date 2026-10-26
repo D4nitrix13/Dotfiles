@@ -1,25 +1,22 @@
-"""
-Qtile workspace and keybinding configuration using Nerd Font icons.
+"""Workspace groups and workspace keybindings for the Qtile window manager.
 
-This script defines visual workspace groups using Nerd Font icons and sets up keybindings to:
-1. Switch to a workspace (Mod + [1-9]).
-2. Move the focused window to a workspace (Mod + Shift + [1-9]).
+Defines the nine workspaces of the configuration, each one identified by a
+single Nerd Font glyph, and the keybindings that drive the workspace switcher:
+
+1. Switch to a workspace (``Mod`` + ``[1-9]``).
+2. Send the focused window to a workspace (``Mod`` + ``Shift`` + ``[1-9]``).
+
+The glyphs are rendered by the ``GroupBox`` widget of the panel, which already
+applies its own horizontal padding, so the group names only carry the icon
+itself.
 
 Dependencies:
-- Nerd Font must be installed for icons to display correctly.
-- settings.keys must define `keys` (List[Key]) and `mod` (modifier key, e.g., "mod4").
 
-Icons used (with Nerd Font codes):
+- A Nerd Font must be installed for the glyphs to display correctly.
+- :mod:`settings.keys` must provide ``keys`` (``List[Key]``) and ``mod``.
 
-- 󰈹 : Web Browsers & Research (nf-md-firefox)
--  : Code Editors & IDEs (nf-dev-vscode)
--  : Terminals & Shells (nf-dev-terminal)
-- 󱍙 : Music & Media Players (nf-md-folder_music)
-- 󰈙 : Documents & Notes (nf-md-file_document)
--  : Image & Graphics Viewers (nf-fa-image)
--  : Containers & DevOps (nf-dev-docker)
--  : System Configuration & Tools (nf-seti-config)
-- 󰌨 : Miscellaneous & Experiments (nf-md-layers)
+Attributes:
+    groups (List[Group]): The configured workspaces, in display order.
 """
 
 # Autor: Daniel Benjamin Perez Morales
@@ -32,7 +29,7 @@ from typing import List
 from libqtile.config import Group, Key
 from libqtile.lazy import lazy
 
-from settings.keys import keys, mod
+from .keys import keys, mod
 
 # Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
 # Icons:
@@ -47,29 +44,45 @@ from settings.keys import keys, mod
 #  -> nf-seti-config
 # 󰌨 -> nf-md-layers
 
-i: int
-g: str
-
 groups: List[Group] = [
     Group(name=g)
-    for g in [" 󰈹  ", "   ", "   ", " 󱍙  ", " 󰈙  ", "   ", "   ", "   ", " 󰌨  "]
+    for g in ["󰈹", "", "", "󱍙", "󰈙", "", "", "", "󰌨"]
 ]
 
-for i, group in enumerate(iterable=groups, start=1):
-    current_key: str = str(i)
-    keys.extend(
-        [
-            # Switch to workspace N
-            Key(
-                [mod],  # Modifiers
-                current_key,  # Key
-                lazy.group[group.name].toscreen(),  # Commands
-            ),
-            # Send window to workspace N
-            Key(
-                [mod, "shift"],  # Modifiers
-                current_key,  # Key
-                lazy.window.togroup(group.name),  # Commands
-            ),
-        ]
-    )
+
+def workspace_keys() -> List[Key]:
+    """Builds the keybindings that drive the workspace switcher.
+
+    Every workspace receives two bindings: one that focuses the workspace and
+    one that moves the focused window to it.
+
+    Returns:
+        List[Key]: The workspace keybindings, in workspace order.
+    """
+    bindings: List[Key] = []
+
+    for index, group in enumerate(iterable=groups, start=1):
+        current_key: str = str(index)
+        bindings.extend(
+            [
+                # Switch to workspace N
+                Key(
+                    [mod],  # Modifiers
+                    current_key,  # Key
+                    lazy.group[group.name].toscreen(),  # Commands
+                ),
+                # Send window to workspace N
+                Key(
+                    [mod, "shift"],  # Modifiers
+                    current_key,  # Key
+                    lazy.window.togroup(group.name),  # Commands
+                ),
+            ]
+        )
+
+    return bindings
+
+
+# libqtile consumes a single flat list of bindings, so the workspace bindings
+# are appended to the shared one.
+keys.extend(workspace_keys())

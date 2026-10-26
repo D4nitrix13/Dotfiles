@@ -7,6 +7,7 @@ directory within the user's home directory.
 Variables:
 - home (str): The expanded path to the user's home directory.
 - qtile_path (str): The full path to the user's Qtile configuration directory.
+- interface_path (str): The full path to the interface state file.
 
 This script can be used to reference Qtile configuration files for further automation or customizations.
 """

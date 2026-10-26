@@ -32,6 +32,7 @@ from subprocess import call
 from typing import List
 
 from libqtile import hook
+from libqtile.config import Rule
 
 from settings.groups import groups  # noqa: F401
 from settings.keys import keys, mod  # noqa: F401
@@ -62,7 +63,7 @@ def script_on_reboot() -> None:
 
 main: None = None
 dgroups_key_binder: None = None
-dgroups_app_rules: List = []
+dgroups_app_rules: List[Rule] = []
 follow_mouse_focus: bool = True
 bring_front_click: bool = False
 cursor_warp: bool = False

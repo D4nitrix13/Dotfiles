@@ -5,13 +5,15 @@ This file defines the configurations for window layouts in the Qtile window
 manager, including window layouts and rules for floating windows.
 
 It imports configuration values from the `settings.theme` file for colors
-and uses those values to customize the appearance of the windows.
+and uses those values to customize the appearance of the windows. Every
+layout receives the same `layout_conf` options, so the border and the margin
+stay consistent when the active layout changes.
 
 Attributes:
-    layout_conf (dict): A dictionary containing configuration for border
-                        and margin settings for layouts.
-    layouts (list): A list of different window layouts that will be used
-                    in Qtile.
+    layout_conf (Dict[str, Union[str, int]]): Configuration shared by every
+                        layout for border and margin settings.
+    layouts (List[Layout]): A list of different window layouts that will be
+                    used in Qtile.
     floating_layout (layout.Floating, optional): A floating layout with
                                                   specific rules, if a
                                                   valid color is defined.
@@ -39,7 +41,7 @@ from libqtile import layout
 from libqtile.config import Match
 
 # Imports General
-from settings.theme import colors
+from .theme import colors
 
 layout_conf: Dict[str, Union[str, int]] = {
     "border_focus": colors["focus"][0],
@@ -57,7 +59,7 @@ layouts: List[
         layout.RatioTile,
     ]
 ] = [
-    layout.Max(),
+    layout.Max(**layout_conf),
     layout.MonadTall(**layout_conf),
     layout.MonadWide(**layout_conf),
     layout.Bsp(**layout_conf),

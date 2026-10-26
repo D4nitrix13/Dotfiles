@@ -1,17 +1,17 @@
-"""
-This script defines mouse actions and bindings for interacting with windows in the Qtile window manager.
+"""Mouse bindings for the Qtile window manager.
 
-It configures drag and click actions using modifier keys and mouse buttons to control window behavior.
+Configures the drag and click actions that let the user move, resize and
+raise floating windows with the mouse.
 
-Mouse Actions:
-- Dragging with `Button1` moves the window to a floating position.
-- Dragging with `Button3` resizes the floating window.
-- Clicking with `Button2` brings the window to the front.
+Mouse actions:
 
-Variables:
-- mouse (List[Union[Drag, Click]]): A list of mouse actions including drag and click events bound to specific buttons and modifiers.
+- Dragging with ``Button1`` moves the window to a floating position.
+- Dragging with ``Button3`` resizes the floating window.
+- Clicking with ``Button2`` brings the window to the front.
 
-This script allows for customized mouse interactions with windows in Qtile for better workflow control.
+Attributes:
+    mouse (List[Union[Drag, Click]]): The mouse actions bound to buttons
+        and modifiers.
 """
 
 # Autor: Daniel Benjamin Perez Morales
@@ -20,9 +20,11 @@ This script allows for customized mouse interactions with windows in Qtile for b
 # Correo electrónico: danielperezdev@proton.me
 
 from typing import List, Union
+
 from libqtile.config import Click, Drag
 from libqtile.lazy import lazy
-from settings.keys import mod
+
+from .keys import mod
 
 mouse: List[Union[Drag, Click]] = [
     Drag(
