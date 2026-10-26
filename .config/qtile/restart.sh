@@ -6,7 +6,10 @@
 # Correo electrónico: danielperezdev@proton.me
 
 # Keyborad Latam
-if [[ "$(/bin/setxkbmap -query | /bin/tail -n 1 | /bin/xargs | /bin/awk '{print $2}')" != "latam" ]]; then
+# El layout de teclado es una decision de sesion: restart.sh corre en cada
+# arranque y en cada reinicio de qtile, autostart.sh solo por proceso.
+layout=$(/bin/setxkbmap -query | /bin/tail -n 1 | /bin/xargs | /bin/awk '{print $2}')
+if [ "$layout" != "latam" ]; then
   /bin/setxkbmap latam
 fi
 

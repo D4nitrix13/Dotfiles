@@ -5,3 +5,6 @@
 # Correo electrónico: danielperezdev@proton.me
 
 **/__pycache__/
+
+# Estado local de la interfaz de red (la escribe autostart.sh)
+interface.txt
