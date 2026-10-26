@@ -161,12 +161,19 @@ available through `pip install z3-solver` if it is ever needed.
 | Package | Reason |
 |---------|--------|
 | `ptpython` | Already in the pipx manifest, and the PyPI wheel needs no compilation. |
-| `python-pyodbc` | Replaced by `pyodbc` in pipx, which publishes a manylinux wheel for Python 3.14. |
 | `wlroots-asan-git` | A debugging build from git, which by definition cannot be precompiled. |
 
-`pyodbc` was added to the pipx manifest under a new `bases-de-datos`
-category. The classification rules were updated to match, and the round trip
-was verified: `--split` from the flat manifest reproduces the current
+`python-pyodbc` was briefly moved to the pipx manifest and then put back.
+The move was wrong for two reasons. First, it was never in the pipx
+manifest: the claim that it was duplicated was a mistake. Second, pipx
+cannot install it at all, because `pyodbc` is a library and pipx requires an
+application entry point. The AUR package installs it into the system
+site-packages, where any `import pyodbc` finds it, which is what the
+previous installation had and the only arrangement that works. It was
+already built and installed, so it costs nothing.
+
+The classification rules were updated to match, and the round trip was
+verified: `--split` from the flat manifest reproduces the current
 categorization exactly.
 
 `classifyPackages.py --sync` now rewrites the header of every category file

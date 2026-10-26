@@ -112,9 +112,7 @@ DESCRIPCIONES = {
 # Descripciones que solo se aplican a un gestor, cuando el mismo nombre de
 # categoria significa otra cosa en otro gestor.
 DESCRIPCIONES_POR_GESTOR = {
-    "pipx": {
-        "bases-de-datos": "Controladores y clientes de bases de datos, instalados desde PyPI.",
-    },
+    "pipx": {},
 }
 
 
@@ -313,7 +311,6 @@ REGLAS: dict[str, list[tuple[str, list[str]]]] = {
     ],
     "pipx": [
         ("calidad-de-codigo", [r"^mypy$"]),
-        ("bases-de-datos", [r"^pyodbc$"]),
         ("entornos-y-gestores", [r"^pipenv$", r"^uv$"]),
         ("terminal-interactivo", [r"^ptpython$"]),
         ("criptografia", [r"^pycrypy$"]),

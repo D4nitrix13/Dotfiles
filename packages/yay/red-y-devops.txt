@@ -2,7 +2,7 @@
 # Herramientas de red, observabilidad y desarrollo del AUR.
 #
 # Categoria: red-y-devops
-# Paquetes: 7
+# Paquetes: 8
 #
 # Instalables con: yay -S --needed freelens-bin hadolint-bin k6 ...
 freelens-bin
@@ -10,5 +10,6 @@ hadolint-bin
 k6
 mailpit-bin
 mdbtools
+python-pyodbc
 redisinsight-bin
 ryzenadj
