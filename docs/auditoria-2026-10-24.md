@@ -190,9 +190,9 @@ La cifra agregada de 42 archivos X11 del inventario previo depende de si se cuen
 | GTK2 | `.gtkrc-2.0` incluye `.gtkrc-2.0.mine`; `gtkrc-2.0` no tiene punto inicial y GTK2 no lo lee. | `.gtkrc-2.0` + `.gtkrc-2.0.mine`. | Retirar `gtkrc-2.0`; no tocar `.gtkrc-2.0` porque GTK2 sí lo lee. |
 | Capturas sin enlace | `Scripts/screenshots-wayland` y `Scripts/screenshots-x11` no aparecen en `bindings.lua`. | `Scripts/screenshot-full-clipboard` y `Scripts/screenshot-region-editor`, que sí están enlazados. | Retirar los dos scripts huérfanos. |
 | Bloqueo heredado | `Scripts/lock` invoca `/bin/i3lock`; Hyprland usa `hyprlock`. | **`hyprlock`**. | Retirar `Scripts/lock` y `i3lock` después de verificar el bloqueo Wayland. |
-| Helpers AUR | `paru` y `yay` están instalados. | **yay**, porque ya existe `packages/yay/installed.txt`. | Retirar `paru` y conservar un único helper. |
+| Helpers AUR | `paru` y `yay` están instalados. | **yay**, porque ya existe el conjunto de manifiestos `packages/yay/`. | Retirar `paru` y conservar un único helper. |
 | Python/Cargo | `mypy` y `uv` aparecen en pacman y pipx; `ptpython` aparece en yay y pipx. | Versión de pacman para `mypy`/`uv`; pipx para `ptpython`. | Retirar los duplicados, no todo el software. |
-| Omarchy | `omarchy-keyring`, `omarchy-nvim` y `omarchy-walker` bloquean la instalación en CachyOS simple. | Ninguno en la instalación base. | Conservarlos solo en `packages/pacman/omarchy-only.txt`. |
+| Omarchy | `omarchy-keyring`, `omarchy-nvim` y `omarchy-walker` bloquean la instalación en CachyOS simple. | Ninguno en la instalación base. | No incluirlos en ningún manifiesto; el motivo queda en la sección 7.3 de esta auditoría. |
 | Documentación | `Docs/` (181, versionado) y `docs/` (2, sin versionar) coexisten en un filesystem sensible a mayúsculas. | **`docs/` en minúscula** para la bitácora nueva. | Fusionar el material común en una sola convención; no mezclar ambos directorios. |
 
 ## 6. Inventario de acoplamiento a Omarchy
@@ -288,48 +288,56 @@ En las tablas largas, una celda puede contener varios paquetes que comparten el 
 | npm global de usuario | 12 | `npm ls -g --depth=0` | Se excluyen `npm`, `corepack`, `semver`, `node-gyp` y `nopt`. |
 | cargo | 3 | `cargo install --list` | Se incluyen los tres paquetes instalados por Cargo. |
 | flatpak | 1 | `flatpak list --app` | Solo aplicaciones; los runtimes no forman parte del manifiesto. |
-| omarchy-only | 3 | Archivo explícito | No instalar en CachyOS simple. |
+| omarchy | 3 | Fuera de los manifiestos | No instalar en CachyOS simple. No figuran en ningún archivo de paquetes. |
 
 `pacman -Qq` devuelve el conjunto instalado completo, incluyendo dependencias transitivas; no es un manifiesto de reinstalación razonable. `pacman -Qqen` selecciona los paquetes nativos explícitamente instalados, que es la unidad correcta para este repositorio.
 
 ### 7.2 Comandos exactos de regeneración
 
+Los manifiestos viven ahora en `packages/<gestor>/<categoria>.txt`, con un archivo
+agregado `packages/<gestor>/installed.txt` que se deriva de ellos. La
+regeneración desde el estado real de la máquina produce primero el manifiesto
+plano y despues reparte los paquetes por categoria:
+
 ```bash
-# pacman: paquetes nativos explícitos, sin Omarchy
+# 1. Manifiestos planos desde el estado real
+mkdir -p /tmp/manifestos/{pacman,yay,pipx,npm,cargo,flatpak}
+
 pacman -Qqen \
   | grep -v -E '^omarchy-(keyring|nvim|walker)$' \
-  > packages/pacman/installed.txt
+  > /tmp/manifestos/pacman/installed.txt
 
-# yay: paquetes AUR explícitos, sin Omarchy
 yay -Qqem \
   | grep -v -E '^omarchy-(keyring|nvim|walker)$' \
-  > packages/yay/installed.txt
+  > /tmp/manifestos/yay/installed.txt
 
-# pipx: una aplicación por entorno
 pipx list --short \
   | cut -d ' ' -f 1 \
-  > packages/pipx/installed.txt
+  > /tmp/manifestos/pipx/installed.txt
 
-# npm: prefijo global del usuario, sin paquetes bundled de Node.js
 npm ls -g --depth=0 --json \
   | python3 -c 'import json,sys; data=json.load(sys.stdin); banned={"npm","corepack","semver","node-gyp","nopt"}; print("\n".join(sorted(name for name in data.get("dependencies",{}) if name not in banned)))' \
-  > packages/npm/installed.txt
+  > /tmp/manifestos/npm/installed.txt
 
-# cargo: nombres de los paquetes instalados, no sus binarios internos
 cargo install --list \
   | sed -nE 's/^([^ ]+) v[^:]+:$/\1/p' \
-  > packages/cargo/installed.txt
+  > /tmp/manifestos/cargo/installed.txt
 
-# flatpak: solo aplicaciones
 flatpak list --app --columns=application \
-  > packages/flatpak/installed.txt
+  > /tmp/manifestos/flatpak/installed.txt
+
+# 2. Reparto por categoría y regeneración de los agregados
+Scripts/classifyPackages.py --split /tmp/manifestos
+
+# 3. Comprobación de que el agregado coincide con las categorías
+Scripts/classifyPackages.py --verify
 ```
 
 El `.npmrc` fija `prefix=/home/d4nitrix13/.local`. Por eso `npm ls -g` describe el prefijo global del usuario. `/usr/lib/node_modules` contiene herramientas propiedad de paquetes del sistema y duplicados bundled; no se incorporate al manifiesto npm de usuario.
 
 ### 7.3 Separación de Omarchy
 
-`packages/pacman/installed.txt` es el manifiestobase para CachyOS simple. `packages/pacman/omarchy-only.txt` conserva exactamente:
+Los tres paquetes de Omarchy quedan fuera de los manifiestos por completo:
 
 ```text
 omarchy-keyring
@@ -337,15 +345,26 @@ omarchy-nvim
 omarchy-walker
 ```
 
+No viven en `packages/pacman/` ni en ninguna otra carpeta de manifiestos, de
+modo que ni el instalador ni una instalación manual los pueden alcanzar. La
+razón queda registrada aqui, que es el sitio donde ya se tomaron decisiones
+sobre ellos: su repositorio no está configurado en CachyOS simple y no
+existen ni en los repositorios oficiales ni en el AUR.
+
+El 26 de octubre de 2026 se quitó además el archivo
+`packages/pacman/excluidos/omarchy-only.txt` que los recogía, porque mantener
+una lista de paquetes que no se van a instalar solo genera ruido en el
+resumen del instalador.
+
 Uso recomendado:
 
 ```bash
-# CachyOS simple: no instalar omarchy-only.txt
-sudo pacman -S --needed - < packages/pacman/installed.txt
-yay -S --needed - < packages/yay/installed.txt
+# CachyOS simple: instalar todo lo declarado
+Scripts/installPackages.sh
 
-# Solo en una máquina que conserva Omarchy, y después de portar la configuración
-yay -S --needed - < packages/pacman/omarchy-only.txt
+# O por gestor, ignorando las cabeceras de comentario
+sudo pacman -S --needed - <(grep -hv '^#' packages/pacman/*.txt)
+yay -S --needed - <(grep -hv '^#' packages/yay/*.txt)
 ```
 
 ### 7.4 Clasificación completa
@@ -409,11 +428,11 @@ Matices dentro de los 110 opcionales:
 |---|---|---|
 | **Eliminar (1)** | `es.danirod.Cartero` | Cartero fue discontinuado y fue sustituido por Graphpaper. |
 
-#### omarchy-only — 3 paquetes
+#### omarchy — 3 paquetes, fuera de los manifiestos
 
 | Veredicto | Paquetes | Motivo |
 |---|---|---|
-| **Eliminar (3)** | `omarchy-keyring`; `omarchy-nvim`; `omarchy-walker` | Dependen de Omarchy y no existen en una instalación CachyOS simple. |
+| **Eliminar (3)** | `omarchy-keyring`; `omarchy-nvim`; `omarchy-walker` | Dependen de Omarchy y no existen en una instalación CachyOS simple. No figuran en ningún manifiesto. |
 
 ### 7.5 Paquetes a eliminar, con condición de seguridad
 
@@ -436,9 +455,9 @@ Matices dentro de los 110 opcionales:
 | `mypy` | pipx | Seguro después de validar el binario de pacman. |
 | `uv` | pipx | Seguro después de validar el binario de pacman. |
 | `es.danirod.Cartero` | flatpak | Migrar a Graphpaper y exportar lo necesario. |
-| `omarchy-keyring` | omarchy-only | No instalar en CachyOS simple. |
-| `omarchy-nvim` | omarchy-only | Portar la configuración de Neovim antes de retirar Omarchy. |
-| `omarchy-walker` | omarchy-only | Sustituir Walker antes de retirar Omarchy. |
+| `omarchy-keyring` | fuera de los manifiestos | No instalar en CachyOS simple. |
+| `omarchy-nvim` | fuera de los manifiestos | Portar la configuración de Neovim antes de retirar Omarchy. |
+| `omarchy-walker` | fuera de los manifiestos | Sustituir Walker antes de retirar Omarchy. |
 
 ### 7.6 Paquetes que conviene añadir al manifiesto base
 
@@ -455,7 +474,7 @@ Si se conserva el estate X11 para Xephyr, también deben añadirse `picom`, `dun
 
 ## 8. Correcciones de configuración
 
-Las correcciones se ordenan por impacto. Este任务 no modificó `.config/omarchy/`, `.config/hypr/`, `.config/waybar/` ni los dotfiles raíz.
+Las correcciones se ordenan por impacto. Este trabajo no modificó `.config/omarchy/`, `.config/hypr/`, `.config/waybar/` ni los dotfiles raíz.
 
 | Orden | Archivo | Corrección exacta |
 |---:|---|---|
@@ -463,7 +482,7 @@ Las correcciones se ordenan por impacto. Este任务 no modificó `.config/omarch
 | 2 | `.config/chromium-headless/` | Ya se añadió a `.gitignore`; no versionar perfiles de navegador efímeros. |
 | 3 | `README.md:53,71` | Corregir el login: el shell efectivo es Zsh, no Fish. Indicar `hyprland`/UWSM de forma verificable, sin afirmar que `.xsession` inicia Hyprland. |
 | 4 | `README.md:235` | Eliminar la afirmación de que `.xsession` ejecuta Hyprland vía UWSM. El archivo actual no contiene ni `hyprland` ni `uwsm`. |
-| 5 | `README.md:255` | Actualizar el conteo de paquetes; usar las cifras de los manifiestos regenerados y separar pacman nativo, yay y omarchy-only. |
+| 5 | `README.md:255` | Actualizar el conteo de paquetes; usar las cifras de los manifiestos regenerados y separar pacman nativo, yay y los paquetes de Omarchy, que quedan fuera de los manifiestos. |
 | 6 | `README.md:373-387` | Actualizar los comandos de regeneración y añadir cargo, flatpak, el filtro de Omarchy y el filtro de paquetes bundled de npm. |
 | 7 | `.dmrc` | Cambiar `Session=qtile` por la sesión Hyprland válida; el valor actual contradice el escritorio vivo. |
 | 8 | `.profile` y `.xsession` | Retirar ambos como scripts de sesión X11. Migrar solo las variables de entorno válidas a `.config/environment.d/` o `.zprofile`. |
@@ -471,7 +490,7 @@ Las correcciones se ordenan por impacto. Este任务 no modificó `.config/omarch
 | 10 | `gnome.desktop`, `gtkrc-2.0` | Retirar el entrypoint GNOME y el archivo GTK2 sin punto inicial. |
 | 11 | `.config/haders` | Retirar del repositorio: es una ayuda de `less` de 335 lines, no una configuración. |
 | 12 | `.config/haders` y `gtkrc-2.0` | Una vez desversionados, añadir rutas exactas a `.gitignore` si se conservarán localmente. |
-| 13 | `docs/` frente a `Docs/` | Elegir una sola convención y evitar que dos diferenciales de Git今后的신 detecten cambios de solo mayúscula. |
+| 13 | `docs/` frente a `Docs/` | Elegir una sola convención y evitar que dos diferenciales de Git detecten cambios de solo mayúscula. |
 | 14 | `Utils/configuration-lightdm/` | Retirar copias de LightDM si GDM permanece; conservar una sola copia solo si se cambia de display manager. |
 | 15 | `Scripts/screenshots-wayland` y `Scripts/screenshots-x11` | Retirar los dos scripts sin binding. |
 | 16 | `Scripts/lock` | Retirar tras verificar `hyprlock` y sus hooks. |

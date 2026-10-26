@@ -100,7 +100,7 @@ T3 through T7 were completed by a delegated writer that hit the token plan limit
 - Full repository audit written to `docs/auditoria-2026-10-24.md` (589 lines, 12 sections).
 - Thermal mitigation recovered and versioned under `Utils/systemd/`.
 - Portable brightness-dim script versioned under `Utils/scripts/display-brightness`.
-- Package manifests regenerated from live state; the three `omarchy-*` packages split into `packages/pacman/omarchy-only.txt`.
+- Package manifests regenerated from live state; the three `omarchy-*` packages kept out of the manifests (as of 2026-10-26 they no longer appear in any manifest file; the reason is recorded in `docs/auditoria-2026-10-24.md`).
 - `.gitignore` extended with `.config/opencode/service.json` and `.config/chromium-headless/`.
 
 ### Verification evidence
@@ -109,7 +109,7 @@ T3 through T7 were completed by a delegated writer that hit the token plan limit
 - `GRUB_CMDLINE_LINUX_DEFAULT` contains the three `amdgpu` parameters
 - `systemctl show ollama.service -p Environment` includes `OLLAMA_VULKAN=false`
 - `fwupdmgr get-updates` reports System Firmware at the latest version
-- `packages/pacman/installed.txt` contains zero `omarchy-` entries; `omarchy-only.txt` holds exactly three
+- No manifest under `packages/` contains an `omarchy-` entry
 - `packages/npm/installed.txt` contains no Node-bundled package
 - `bash -n` passes on `Utils/systemd/cpufreq-stabilize.sh` and `Utils/scripts/display-brightness`
 - The plaintext password in `.config/opencode/service.json` was confirmed never to have entered git history
