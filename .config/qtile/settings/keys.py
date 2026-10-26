@@ -54,7 +54,7 @@ keys: List[Key] = [
         ([mod, "shift"], "l", lazy.layout.grow()),
         ([mod, "shift"], "h", lazy.layout.shrink()),
         # Toggle floating
-        ([mod, "shift"], "f", lazy.window.toggle_floating()),
+        ([mod], "f", lazy.window.toggle_floating()),
         # Move windows up or down in current stack
         ([mod, "shift"], "j", lazy.layout.shuffle_down()),
         ([mod, "shift"], "k", lazy.layout.shuffle_up()),
@@ -71,12 +71,12 @@ keys: List[Key] = [
         ([mod, "control"], "q", lazy.shutdown()),
         ([mod], "r", lazy.spawncmd()),
         # Switch window focus to other pane(s) of stack
-        ([mod], "space", lazy.layout.next()),
+        ([mod], "m", lazy.layout.next()),
         # Swap panes of split stack
         ([mod, "shift"], "space", lazy.layout.rotate()),
         # ------------ App Configs ------------
-        # Menu
-        ([mod], "m", lazy.spawn("/bin/rofi -show drun")),
+        # Menu / application launcher
+        ([mod], "space", lazy.spawn("/bin/rofi -show drun")),
         # Window Nav
         ([mod, "shift"], "m", lazy.spawn("/bin/rofi -show window")),
         # Browser
@@ -98,7 +98,7 @@ keys: List[Key] = [
         # Nvim
         ([mod], "n", lazy.spawn("/bin/alacritty -e /bin/nvim")),
         # File Explorer
-        ([mod], "e", lazy.spawn("/bin/thunar")),
+        ([mod, "shift"], "f", lazy.spawn("/bin/thunar")),
         # Terminal
         ([mod], "Return", lazy.spawn("/bin/alacritty")),
         
@@ -107,7 +107,7 @@ keys: List[Key] = [
         # ([mod, "shift"], "r", lazy.spawn("/bin/redshift -x")),
 
         # Screenshot With Scrot
-        ([mod], "s", lazy.spawn(f"{home}/Scripts/screenshots")),
+        ([mod], "s", lazy.spawn(f"{home}/Scripts/screenshots-x11")),
 
         # Screenshot With Flameshot
         ([mod, "shift"], "s", lazy.spawn("/bin/flameshot gui")),
