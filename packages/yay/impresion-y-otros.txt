@@ -1,0 +1,9 @@
+# Impresion y otros
+# Soporte de impresoras y paquetes sin uso claro.
+#
+# Categoria: impresion-y-otros
+# Paquetes: 2
+#
+# Instalables con: yay -S --needed epson-inkjet-printer-escpr epson-inkjet-printer-escpr2
+epson-inkjet-printer-escpr
+epson-inkjet-printer-escpr2

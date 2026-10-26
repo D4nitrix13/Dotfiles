@@ -1,0 +1,11 @@
+# Herramientas de construccion
+# Compilacion, empaquetado y las herramientas base para construir software.
+#
+# Categoria: herramientas-de-construccion
+# Paquetes: 4
+#
+# Instalables con: sudo pacman -S --needed base-devel cmake gcc-fortran ...
+base-devel
+cmake
+gcc-fortran
+git

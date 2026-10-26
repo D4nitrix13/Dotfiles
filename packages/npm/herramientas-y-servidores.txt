@@ -1,0 +1,12 @@
+# Herramientas y servidores
+# Utilidades de desarrollo instaladas con npm.
+#
+# Categoria: herramientas-y-servidores
+# Paquetes: 5
+#
+# Instalables con: npm install -g @colbymchenry/codegraph @playwright/cli prettier-plugin-astro ...
+@colbymchenry/codegraph
+@playwright/cli
+prettier-plugin-astro
+serve
+typescript

@@ -1,0 +1,8 @@
+# Calidad de codigo
+# Analizadores estaticos y verificadores de tipos.
+#
+# Categoria: calidad-de-codigo
+# Paquetes: 1
+#
+# Instalables con: pipx install mypy
+mypy

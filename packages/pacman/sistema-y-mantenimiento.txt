@@ -1,0 +1,22 @@
+# Sistema y mantenimiento
+# Mantenimiento base del sistema, utilidades core y actualizacion de paquetes.
+#
+# Categoria: sistema-y-mantenimiento
+# Paquetes: 15
+#
+# Instalables con: sudo pacman -S --needed accountsservice base bash-completion ...
+accountsservice
+base
+bash-completion
+diffutils
+logrotate
+lsb-release
+man-db
+man-pages
+pacman-contrib
+rebuild-detector
+reflector
+texinfo
+tzupdate
+unzip
+which

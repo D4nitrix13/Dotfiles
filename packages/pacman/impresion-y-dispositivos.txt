@@ -1,0 +1,29 @@
+# Impresion y dispositivos
+# Impresoras, escaneres, Bluetooth, USB y dispositivos concretos.
+#
+# Categoria: impresion-y-dispositivos
+# Paquetes: 22
+#
+# Instalables con: sudo pacman -S --needed android-tools blueman bluetui ...
+android-tools
+blueman
+bluetui
+bolt
+cups
+cups-browsed
+cups-filters
+cups-pdf
+foomatic-db
+foomatic-db-engine
+foomatic-db-gutenprint-ppds
+foomatic-db-nonfree
+foomatic-db-nonfree-ppds
+foomatic-db-ppds
+gutenprint
+hplip
+ipp-usb
+simple-scan
+system-config-printer
+tecla
+usb_modeswitch
+usbutils

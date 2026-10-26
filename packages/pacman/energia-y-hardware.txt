@@ -1,0 +1,11 @@
+# Energia y hardware
+# Gestion de energia, brillo y hardware grafico basico.
+#
+# Categoria: energia-y-hardware
+# Paquetes: 4
+#
+# Instalables con: sudo pacman -S --needed brightnessctl mesa power-profiles-daemon ...
+brightnessctl
+mesa
+power-profiles-daemon
+upower

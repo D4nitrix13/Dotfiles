@@ -1,0 +1,42 @@
+# Red y conectividad
+# Conexion, DNS, Bluetooth, VPN, servidores y transferencia de archivos en red.
+#
+# Categoria: red-y-conectividad
+# Paquetes: 35
+#
+# Instalables con: sudo pacman -S --needed arp-scan bind bluez ...
+arp-scan
+bind
+bluez
+bluez-hid2hci
+bluez-libs
+bluez-obex
+bluez-utils
+caddy
+cloudflared
+dnsmasq
+ethtool
+gping
+inetutils
+iperf3
+iwd
+localsend
+modemmanager
+net-tools
+netctl
+networkmanager
+networkmanager-openvpn
+nfs-utils
+nm-connection-editor
+nmap
+nss-mdns
+openssh
+rsync
+s-nail
+samba
+socat
+vsftpd
+wget
+whois
+wpa_supplicant
+xl2tpd

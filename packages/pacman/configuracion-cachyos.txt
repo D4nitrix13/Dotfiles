@@ -1,0 +1,14 @@
+# Configuracion cachyos
+# Paquetes propios de CachyOS: ajustes, espejo, temas y herramientas de la distribucion.
+#
+# Categoria: configuracion-cachyos
+# Paquetes: 7
+#
+# Instalables con: sudo pacman -S --needed cachyos-fish-config cachyos-hello cachyos-micro-settings ...
+cachyos-fish-config
+cachyos-hello
+cachyos-micro-settings
+cachyos-packageinstaller
+cachyos-settings
+cachyos-wallpapers
+cachyos-zsh-config

@@ -1,0 +1,24 @@
+# Fuentes
+# Tipografias de sistema, de terminal y de interfaz grafica.
+#
+# Categoria: fuentes
+# Paquetes: 17
+#
+# Instalables con: sudo pacman -S --needed awesome-terminal-fonts cantarell-fonts gsfonts ...
+awesome-terminal-fonts
+cantarell-fonts
+gsfonts
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-bitstream-vera
+ttf-dejavu
+ttf-fira-sans
+ttf-ia-writer
+ttf-jetbrains-mono-nerd
+ttf-liberation
+ttf-meslo-nerd
+ttf-opensans
+ttf-ubuntu-font-family
+ttf-ubuntu-nerd
+woff2-font-awesome

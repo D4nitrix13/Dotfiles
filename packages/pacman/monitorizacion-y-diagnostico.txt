@@ -1,0 +1,22 @@
+# Monitorizacion y diagnostico
+# Medicion de recursos, hardware y diagnostico del sistema.
+#
+# Categoria: monitorizacion-y-diagnostico
+# Paquetes: 15
+#
+# Instalables con: sudo pacman -S --needed calcurse chwd cpupower ...
+calcurse
+chwd
+cpupower
+dmidecode
+glances
+htop
+hwdetect
+hwinfo
+lsscsi
+pkgfile
+sg3_utils
+snapshot
+stress-ng
+sysfsutils
+usage

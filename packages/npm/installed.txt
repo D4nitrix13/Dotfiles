@@ -1,3 +1,10 @@
+# Manifiesto agregado de npm
+#
+# Este archivo NO se edita a mano. Se genera desde los archivos por
+# categoria con: Scripts/classifyPackages.py --sync
+#
+# Paquetes: 12
+#
 @astrojs/language-server
 @colbymchenry/codegraph
 @microsoft/compose-language-service

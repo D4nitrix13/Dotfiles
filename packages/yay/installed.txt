@@ -1,3 +1,10 @@
+# Manifiesto agregado de yay
+#
+# Este archivo NO se edita a mano. Se genera desde los archivos por
+# categoria con: Scripts/classifyPackages.py --sync
+#
+# Paquetes: 16
+#
 epson-inkjet-printer-escpr
 epson-inkjet-printer-escpr2
 freelens-bin

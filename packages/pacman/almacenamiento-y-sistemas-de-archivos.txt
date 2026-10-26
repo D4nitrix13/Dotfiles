@@ -1,0 +1,30 @@
+# Almacenamiento y sistemas de archivos
+# Herramientas de discos, sistemas de archivos, cifrado, LVM y RAID.
+#
+# Categoria: almacenamiento-y-sistemas-de-archivos
+# Paquetes: 23
+#
+# Instalables con: sudo pacman -S --needed 7zip btrfs-progs cryptsetup ...
+7zip
+btrfs-progs
+cryptsetup
+device-mapper
+dmraid
+dosfstools
+e2fsprogs
+exfatprogs
+f2fs-tools
+file-roller
+fsarchiver
+hdparm
+jfsutils
+lvm2
+lzip
+mdadm
+mtools
+nilfs-utils
+ntfs-3g
+smartmontools
+unrar
+unshield
+xfsprogs

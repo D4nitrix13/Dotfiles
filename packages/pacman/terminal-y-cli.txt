@@ -1,0 +1,31 @@
+# Terminal y cli
+# Emuladores de terminal, paginadores y utilidades de linea de comandos.
+#
+# Categoria: terminal-y-cli
+# Paquetes: 24
+#
+# Instalables con: sudo pacman -S --needed alacritty bc btop ...
+alacritty
+bc
+btop
+dua-cli
+duf
+fastfetch
+foot
+ghostty
+kitty
+lazydocker
+lazygit
+less
+libqalculate
+lsd
+nushell
+plocate
+pv
+ripgrep
+starship
+task
+timew
+tmux
+tree
+zoxide

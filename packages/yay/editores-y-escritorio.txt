@@ -1,0 +1,10 @@
+# Editores y escritorio
+# Editores y componentes de escritorio del AUR.
+#
+# Categoria: editores-y-escritorio
+# Paquetes: 3
+#
+# Instalables con: yay -S --needed rstudio-desktop-bin ttf-ms-fonts ttf-vista-fonts
+rstudio-desktop-bin
+ttf-ms-fonts
+ttf-vista-fonts

@@ -1,0 +1,24 @@
+# Audio
+# ALSA, PipeWire, WirePlumber, mezcladores y reproductores de audio.
+#
+# Categoria: audio
+# Paquetes: 17
+#
+# Instalables con: sudo pacman -S --needed alsa-firmware alsa-plugins alsa-utils ...
+alsa-firmware
+alsa-plugins
+alsa-utils
+espeak-ng
+gst-libav
+gst-plugin-pipewire
+gst-plugin-va
+gst-plugins-bad
+gst-plugins-ugly
+gst-thumbnailers
+mpv-mpris
+pavucontrol
+pipewire-alsa
+pipewire-pulse
+playerctl
+wiremix
+wireplumber

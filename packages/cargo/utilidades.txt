@@ -1,0 +1,9 @@
+# Utilidades
+# Paquetes agrupados por categoria.
+#
+# Categoria: utilidades
+# Paquetes: 2
+#
+# Instalables con: cargo install tokei vtracer
+tokei
+vtracer

@@ -1,3 +1,10 @@
+# Manifiesto agregado de cargo
+#
+# Este archivo NO se edita a mano. Se genera desde los archivos por
+# categoria con: Scripts/classifyPackages.py --sync
+#
+# Paquetes: 3
+#
 tokei
 vtracer
 zellij

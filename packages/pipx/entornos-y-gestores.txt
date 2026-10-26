@@ -1,0 +1,9 @@
+# Entornos y gestores
+# Entornos virtuales y gestores de dependencias de Python.
+#
+# Categoria: entornos-y-gestores
+# Paquetes: 2
+#
+# Instalables con: pipx install pipenv uv
+pipenv
+uv

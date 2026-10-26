@@ -1,0 +1,8 @@
+# Criptografia
+# Utilidades de cifrado y gestion de secretos.
+#
+# Categoria: criptografia
+# Paquetes: 1
+#
+# Instalables con: pipx install pycrypy
+pycrypy

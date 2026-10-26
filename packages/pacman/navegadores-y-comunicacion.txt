@@ -1,0 +1,12 @@
+# Navegadores y comunicacion
+# Navegadores web, correo y clientes de mensajeria.
+#
+# Categoria: navegadores-y-comunicacion
+# Paquetes: 5
+#
+# Instalables con: sudo pacman -S --needed chromium epiphany filezilla ...
+chromium
+epiphany
+filezilla
+firefox
+signal-desktop

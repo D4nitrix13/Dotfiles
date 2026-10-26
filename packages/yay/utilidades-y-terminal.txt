@@ -1,0 +1,10 @@
+# Utilidades y terminal
+# Utilidades graficas y de terminal disponibles en el AUR.
+#
+# Categoria: utilidades-y-terminal
+# Paquetes: 3
+#
+# Instalables con: yay -S --needed monique ptpython wlroots-asan-git
+monique
+ptpython
+wlroots-asan-git

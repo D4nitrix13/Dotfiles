@@ -1,0 +1,15 @@
+# Contenedores y virtualizacion
+# Contenedores, orquestadores, maquinas virtuales y emulacion.
+#
+# Categoria: contenedores-y-virtualizacion
+# Paquetes: 8
+#
+# Instalables con: sudo pacman -S --needed docker docker-buildx docker-compose ...
+docker
+docker-buildx
+docker-compose
+kind
+kubectl
+minikube
+parsec-bin
+qemu-user-static-binfmt

@@ -1,0 +1,9 @@
+# Paquetes no disponibles
+# Se eliminaron de los repositorios oficiales y del AUR, por lo que no se pueden instalar.
+#
+# Se conservan aqui como registro de lo que habia en la instalacion anterior.
+#
+# Paquetes: 2
+#
+asdcontrol
+tobi-try

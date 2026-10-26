@@ -1,0 +1,13 @@
+# Bases de datos
+# Motores de base de datos y sus clientes.
+#
+# Categoria: bases-de-datos
+# Paquetes: 6
+#
+# Instalables con: sudo pacman -S --needed mariadb mariadb-clients mariadb-libs ...
+mariadb
+mariadb-clients
+mariadb-libs
+postgresql
+postgresql-libs
+valkey

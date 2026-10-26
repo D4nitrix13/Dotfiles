@@ -1,0 +1,8 @@
+# Terminal interactivo
+# Interpretadores interactivos de Python.
+#
+# Categoria: terminal-interactivo
+# Paquetes: 1
+#
+# Instalables con: pipx install ptpython
+ptpython

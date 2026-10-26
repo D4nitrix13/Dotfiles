@@ -1,0 +1,10 @@
+# Teclado y entradas
+# Metodos de entrada, distribucion de teclado y peripherals.
+#
+# Categoria: teclado-y-entradas
+# Paquetes: 3
+#
+# Instalables con: sudo pacman -S --needed fcitx5 fcitx5-gtk fcitx5-qt
+fcitx5
+fcitx5-gtk
+fcitx5-qt

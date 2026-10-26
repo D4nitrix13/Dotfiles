@@ -1,0 +1,8 @@
+# Terminal y multiplicadores
+# Multiplicadores de terminal y editores de sesiones.
+#
+# Categoria: terminal-y-multiplicadores
+# Paquetes: 1
+#
+# Instalables con: cargo install zellij
+zellij

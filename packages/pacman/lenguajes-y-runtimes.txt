@@ -1,0 +1,47 @@
+# Lenguajes y runtimes
+# Interpreters, compiladores y gestores de versiones de los lenguajes usados.
+#
+# Categoria: lenguajes-y-runtimes
+# Paquetes: 40
+#
+# Instalables con: sudo pacman -S --needed composer dotnet-runtime-9.0 jdk-openjdk ...
+composer
+dotnet-runtime-9.0
+jdk-openjdk
+jre21-openjdk
+lua-lpeg
+lua-luv
+luarocks
+mise
+npm
+perl
+php
+php-gd
+php-pgsql
+php-redis
+php-sodium
+pnpm
+pyenv
+python
+python-dbus-fast
+python-dbus-next
+python-defusedxml
+python-packaging
+python-pip
+python-pipenv
+python-pipx
+python-poetry-core
+python-pulsectl
+python-pulsectl-asyncio
+python-pyclip
+python-pydbus
+python-pyqt5
+python-pywayland
+python-reportlab
+python-ruff
+python-terminaltexteffects
+python-virtualenv
+r
+ruby
+rustup
+uv

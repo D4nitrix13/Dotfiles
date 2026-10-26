@@ -1,0 +1,30 @@
+# Wayland hyprland
+# Hyprland, su ecosistema Wayland, barras, portales y utilidades del compositor.
+#
+# Categoria: wayland-hyprland
+# Paquetes: 23
+#
+# Instalables con: sudo pacman -S --needed grim hypridle hyprland ...
+grim
+hypridle
+hyprland
+hyprland-guiutils
+hyprland-preview-share-picker
+hyprlock
+hyprpicker
+hyprshot
+hyprsunset
+impala
+mako
+qt5-wayland
+quickshell
+slurp
+swappy
+swaybg
+swayosd
+uwsm
+waybar
+wl-clipboard
+wlr-randr
+xdg-desktop-portal-hyprland
+xdg-terminal-exec

@@ -1,0 +1,14 @@
+# Editores y servidores de lenguaje
+# Servidores de lenguaje y herramientas de edicion instaladas con npm.
+#
+# Categoria: editores-y-servidores-de-lenguaje
+# Paquetes: 7
+#
+# Instalables con: npm install -g @astrojs/language-server @microsoft/compose-language-service @vtsls/language-server ...
+@astrojs/language-server
+@microsoft/compose-language-service
+@vtsls/language-server
+emmet-ls
+intelephense
+markdownlint-cli
+typescript-language-server

@@ -1,0 +1,22 @@
+# Edicion y lectura
+# Oficina, visores de PDF, diccionarios, OCR y conversion de documentos.
+#
+# Categoria: edicion-y-lectura
+# Paquetes: 15
+#
+# Instalables con: sudo pacman -S --needed antiword catdoc evince ...
+antiword
+catdoc
+evince
+ghostscript
+hunspell-es_any
+hyphen-es
+libreoffice-fresh
+libreoffice-fresh-es
+obsidian
+pandoc-cli
+pdfgrep
+poppler-glib
+tesseract
+tesseract-data-eng
+typora

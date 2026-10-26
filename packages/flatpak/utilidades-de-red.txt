@@ -1,0 +1,8 @@
+# Utilidades de red
+# Aplicaciones de red instaladas como Flatpak.
+#
+# Categoria: utilidades-de-red
+# Paquetes: 1
+#
+# Instalables con: flatpak install -y flathub es.danirod.Cartero
+es.danirod.Cartero

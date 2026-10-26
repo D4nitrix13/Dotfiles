@@ -1,0 +1,30 @@
+# Video y multimedia
+# Reproduccion, edicion, imagen y streaming multimedia.
+#
+# Categoria: video-y-multimedia
+# Paquetes: 23
+#
+# Instalables con: sudo pacman -S --needed cliamp ffmpegthumbnailer flameshot ...
+cliamp
+ffmpegthumbnailer
+flameshot
+gifsicle
+gpu-screen-recorder
+grilo-plugins
+imv
+jpegoptim
+kdenlive
+libdvdcss
+libgsf
+libopenraw
+mpv
+obs-studio
+optiimage
+optipng
+pinta
+pngquant
+rygel
+satty
+showtime
+spotify
+vlc-plugins-all
