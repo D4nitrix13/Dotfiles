@@ -1,28 +1,32 @@
+"""Qtile widget bar configuration.
+
+Defines the widgets used in the top and bottom bars of a custom Qtile desktop
+environment. Typography and panel geometry come from `settings.metrics`, while
+`widget_defaults` supplies the shared font, size, and padding to widgets that do
+not require an intrinsically different size.
+
+Attributes:
+    primary_widgets: Widgets shown on the primary screen.
+    secondary_widgets: Widgets shown on secondary screens.
+    bottom_widgets: Widgets shown on the bottom bar.
+    widget_defaults: Shared widget defaults exported to libqtile.
+    extension_defaults: Shared extension defaults exported to libqtile.
 """
-Qtile widget bar configuration.
 
-This file defines the appearance, layout, and functionality of the widgets used in the
-top and bottom bars of a custom Qtile desktop environment. It uses a color palette
-inspired by the Material Ocean theme and organizes widgets into three main groups:
-
-- `primary_widgets`: Widgets shown on the primary screen (system info, network, audio, etc.)
-- `secondary_widgets`: Widgets shown on secondary screens (layout, clock, etc.)
-- `bottom_widgets`: Optional widgets for a bottom bar (active window, system info, clock, etc.)
-
-Each widget is styled consistently using helper functions such as `base()`, `icon()`,
-and `powerline()`, and utilizes Nerd Font icons.
-"""
 # -*- coding: utf-8 -*-
 # Autor: Daniel Benjamin Perez Morales
 # GitHub: https://github.com/D4nitrix13
 # Gitlab: https://gitlab.com/D4nitrix13
 # Correo electrónico: danielperezdev@proton.me
 
-from subprocess import check_output
-from typing import Any, Dict, List, Union
+from os import listdir
+from subprocess import CompletedProcess, check_output, run
+from typing import Any, Dict, List, Union, cast
 
 from libqtile import qtile, widget  # type: ignore
+from libqtile.core.manager import Qtile
 
+from . import metrics
 from .path import interface_path
 from .theme import colors
 
@@ -46,6 +50,58 @@ def base(fg: str = "text", bg: str = "dark") -> Dict[str, Any]:
     )
 
 
+def network_interface() -> str:
+    """Returns the network interface used by the network widget.
+
+    The configured interface takes precedence. When it is missing or empty, the
+    function falls back to the default route and then to the first non-loopback
+    interface exposed by the kernel. None of these failures break configuration
+    loading.
+
+    Returns:
+        str: The detected interface name, or an empty string when detection fails.
+    """
+    try:
+        with open(
+            file=interface_path,
+            mode="r",
+            encoding="utf-8",
+        ) as interface_file:
+            configured_interface: str = interface_file.read().strip()
+        if configured_interface:
+            return configured_interface
+    except (OSError, UnicodeError):
+        pass
+
+    try:
+        route: CompletedProcess[str] = run(
+            args=["ip", "route", "get", "1.1.1.1"],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if route.returncode == 0:
+            route_tokens: List[str] = route.stdout.split()
+            if "dev" in route_tokens:
+                interface_index: int = route_tokens.index("dev")
+                if interface_index + 1 < len(route_tokens):
+                    detected_interface: str = route_tokens[interface_index + 1]
+                    if detected_interface:
+                        return detected_interface
+    except (OSError, UnicodeError):
+        pass
+
+    try:
+        network_interfaces: List[str] = listdir(path="/sys/class/net")
+        for interface in network_interfaces:
+            if interface != "lo":
+                return interface
+    except OSError:
+        pass
+
+    return ""
+
+
 def separator() -> widget.Sep:
     """
     Creates a separator widget with transparent spacing.
@@ -57,16 +113,18 @@ def separator() -> widget.Sep:
 
 
 def icon(
-    fg: str = "text", bg: str = "dark", fontsize: int = 16, text: str = "?"
+    fg: str = "text",
+    bg: str = "dark",
+    fontsize: int = metrics.ICON_FONTSIZE,
+    text: str = "?",
 ) -> widget.TextBox:
-    """
-    Creates a styled TextBox widget used as an icon with Nerd Font glyphs.
+    """Creates a styled TextBox widget used as an icon with Nerd Font glyphs.
 
-    Parameters:
-        fg (str): The foreground color key from the theme. Defaults to "text".
-        bg (str): The background color key from the theme. Defaults to "dark".
-        fontsize (int): Font size of the icon. Defaults to 16.
-        text (str): The text or glyph to display. Defaults to "?".
+    Args:
+        fg: The foreground color key from the theme.
+        bg: The background color key from the theme.
+        fontsize: Font size of the icon.
+        text: The text or glyph to display.
 
     Returns:
         widget.TextBox: A TextBox configured as an icon with the specified styles.
@@ -90,7 +148,7 @@ def powerline(fg: str = "light", bg: str = "dark") -> widget.TextBox:
     return widget.TextBox(
         **base(fg, bg),
         text="",  # Icon: nf-oct-triangle_left
-        fontsize=37,
+        fontsize=metrics.POWERLINE_FONTSIZE,
         # padding=-1,
     )
 
@@ -109,11 +167,10 @@ def workspaces() -> List[Union[widget.Sep, widget.GroupBox]]:
         separator(),
         widget.GroupBox(
             **base(fg="light"),
-            font="UbuntuMono Nerd Font",
-            fontsize=22,
-            margin_y=3,
+            fontsize=metrics.GROUP_FONTSIZE,
+            margin_y=metrics.GROUP_MARGIN_Y,
             margin_x=0,
-            padding_y=8,
+            padding_y=metrics.GROUP_PADDING_Y,
             padding_x=5,
             borderwidth=1,
             active=colors.get("active") or "#f1ffff",
@@ -138,8 +195,6 @@ primary_widgets: List[Any] = [
     powerline(fg="color8", bg="dark"),
     icon(bg="color8", text=" "),  # Icon: nf-fa-download
     widget.CheckUpdates(
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         fmt="{}",
         background=colors.get("color8") or "#ffd47e",
         colour_have_updates=colors.get("text") or "#0f101a",
@@ -157,7 +212,7 @@ primary_widgets: List[Any] = [
         **base(bg="color7"),
         channel="Master",
         mute_format="Muted",
-        mouse_callbacks={"Button1": lambda: qtile.spawn("pavucontrol")},
+        mouse_callbacks={"Button1": lambda: cast(Qtile, qtile).spawn("pavucontrol")},
         fmt="{}",
     ),
     # ------------ Shows current RAM usage, including used and total memory ------------
@@ -165,10 +220,10 @@ primary_widgets: List[Any] = [
     icon(bg="color6", text="󱐋"),  # Icon: nf-md-lightning_bolt
     widget.Memory(
         **base(bg="color6"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         format="{MemUsed: .2f}{mm} /{MemTotal: .2f}{mm}",
-        mouse_callbacks={"Button1": lambda: qtile.spawn("/bin/alacritty -e htop")},
+        mouse_callbacks={
+            "Button1": lambda: cast(Qtile, qtile).spawn("/bin/alacritty -e htop")
+        },
         fmt="{}",
         update_interval=1,
     ),
@@ -177,8 +232,6 @@ primary_widgets: List[Any] = [
     icon(bg="color5", text=" "),  # Icon: nf-oct-cpu
     widget.CPU(
         **base(bg="color5"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         fmt="{}",
         update_interval=1,
     ),
@@ -187,26 +240,20 @@ primary_widgets: List[Any] = [
     icon(bg="color4", text=" "),  # Icon: nf-fa-feed
     widget.Net(
         **base(bg="color4"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         fmt="{}",
-        interface=open(file=interface_path, mode="r").read().strip(),
+        interface=network_interface(),
         update_interval=1,
     ),
     # ------------ Displays an icon representing the current window layout ------------
     powerline(fg="color3", bg="color4"),
     widget.CurrentLayout(
         **base(bg="color3"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         scale=0.65,
         mode="icon",
     ),
     # ------------ Shows the name of the currently active layout ------------
     widget.CurrentLayout(
         **base(bg="color3"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         padding=5,
         fmt="{}",
     ),
@@ -228,16 +275,12 @@ secondary_widgets: List[Any] = [
     powerline(fg="color1", bg="dark"),
     widget.CurrentLayout(
         **base(bg="color1"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         scale=0.65,
         mode="icon",
     ),
     # ------------ Shows the name of the currently active layout ------------
     widget.CurrentLayout(
         **base(bg="color1"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         padding=5,
         fmt="{}",
     ),
@@ -245,8 +288,6 @@ secondary_widgets: List[Any] = [
     powerline(fg="color2", bg="color1"),
     widget.Clock(
         **base(bg="color2"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         format="%A, %d of %B %Y - %I:%M:%S %p ",
     ),
     powerline(fg="dark", bg="color2"),
@@ -256,8 +297,6 @@ bottom_widgets: List[Any] = [
     # ------------ Displays the title of the currently focused window ------------
     widget.WindowName(
         **base(fg="focus"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         padding=5,
         max_chars=195,
     ),
@@ -268,27 +307,23 @@ bottom_widgets: List[Any] = [
         func=lambda: check_output(
             args='printf "Arch Linux $(uname -r)"', shell=True, text=True
         ),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         padding=5,
         fmt="❤ {}",
         update_interval=86400,
     ),
     # ------------ Shows the current date and time in a customizable format ------------
     powerline(fg="color1", bg="color2"),
-    icon(bg="color1", fontsize=17, text="󰃰 "),  # Icon: nf-md-calendar_clock
+    icon(bg="color1", text="󰃰 "),  # Icon: nf-md-calendar_clock
     widget.Clock(
         **base(bg="color1"),
-        font="UbuntuMono Bold Italic",
-        fontsize=14,
         format="%A, %d of %B %Y - %H:%M:%S %p ",
     ),
 ]
 
 
 widget_defaults: Dict[str, Union[str, int]] = {
-    "font": "UbuntuMono Nerd Font Bold Italic",
-    "fontsize": 16,
-    "padding": 1,
+    "font": metrics.BAR_FONT,
+    "fontsize": metrics.BAR_FONTSIZE,
+    "padding": metrics.WIDGET_PADDING,
 }
 extension_defaults: Dict[str, Union[str, int]] = widget_defaults.copy()

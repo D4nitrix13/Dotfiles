@@ -1,15 +1,10 @@
-"""
-Theme management for Qtile.
+"""Theme management for Qtile.
 
-This file handles loading the current color theme configuration for the Qtile desktop environment.
-It reads the selected theme from a `config.json` file, and falls back to "material-ocean" if not specified.
-If the configuration file does not exist, it will be created automatically with the default theme.
+Loads the active color palette from the selected JSON theme file and exposes it
+through the module-level `colors` mapping.
 
-The selected theme must correspond to a `.json` file located in the `themes/` directory within the Qtile config path.
-
-Usage:
-    - Called via `load_theme()` to return the theme as a dictionary of color definitions.
-    - Raises an exception if the theme file does not exist.
+Attributes:
+    colors: Active color definitions keyed by semantic theme names.
 """
 
 # -*- coding: utf-8 -*-
@@ -65,5 +60,4 @@ def load_theme() -> Any:
         return load(fp=f)
 
 
-if __name__ == "settings.theme":
-    colors: Any = load_theme()
+colors: Any = load_theme()
