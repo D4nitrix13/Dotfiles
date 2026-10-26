@@ -1,0 +1,14 @@
+# Shell zsh
+# El interprete zsh con su gestor de plugins y los complementos que activan el resaltado, el autosuggest y la busqueda en el historial.
+#
+# Categoria: shell-zsh
+# Paquetes: 7
+#
+# Instalables con: sudo pacman -S --needed oh-my-zsh-git zsh zsh-autosuggestions ...
+oh-my-zsh-git
+zsh
+zsh-autosuggestions
+zsh-completions
+zsh-history-substring-search
+zsh-syntax-highlighting
+zsh-theme-powerlevel10k

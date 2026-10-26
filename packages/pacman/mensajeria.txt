@@ -1,0 +1,8 @@
+# Mensajeria
+# Clientes de mensajeria de escritorio instalados como Flatpak.
+#
+# Categoria: mensajeria
+# Paquetes: 1
+#
+# Instalables con: sudo pacman -S --needed discord
+discord

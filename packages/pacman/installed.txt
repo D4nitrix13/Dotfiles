@@ -3,7 +3,7 @@
 # Este archivo NO se edita a mano. Se genera desde los archivos por
 # categoria con: Scripts/classifyPackages.py --sync
 #
-# Paquetes: 443
+# Paquetes: 450
 #
 1password-beta
 1password-cli
@@ -37,21 +37,15 @@ bolt
 brightnessctl
 btop
 btrfs-progs
-cachyos-fish-config
 cachyos-grub-theme
-cachyos-hello
 cachyos-hooks
 cachyos-kernel-manager
 cachyos-keyring
 cachyos-mirrorlist
-cachyos-packageinstaller
 cachyos-plymouth-bootanimation
 cachyos-plymouth-theme
-cachyos-rate-mirrors
 cachyos-settings
 cachyos-v3-mirrorlist
-cachyos-v4-mirrorlist
-cachyos-wallpapers
 caddy
 calcurse
 cantarell-fonts
@@ -72,6 +66,7 @@ cups-pdf
 decibels
 device-mapper
 diffutils
+discord
 dmidecode
 dmraid
 dnsmasq
@@ -119,6 +114,7 @@ ghostscript
 gifsicle
 git
 github-cli
+glances
 gnome-backgrounds
 gnome-calculator
 gnome-calendar
@@ -175,6 +171,7 @@ gvfs-smb
 gvfs-wsdd
 hdparm
 hplip
+htop
 hunspell-es_any
 hwdetect
 hwinfo
@@ -189,6 +186,7 @@ hyprshot
 hyprsunset
 i3lock
 impala
+imv
 inetutils
 iperf3
 ipp-usb
@@ -252,6 +250,8 @@ mpv
 mpv-mpris
 mtools
 mypy
+nano
+nano-syntax-highlighting
 nautilus
 nautilus-python
 neovim
@@ -274,6 +274,7 @@ nwg-displays
 nwg-look
 obs-studio
 obsidian
+oh-my-zsh-git
 ollama
 opencl-mesa
 openssh
@@ -448,3 +449,9 @@ yaml-language-server
 yaru-icon-theme
 yelp
 zoxide
+zsh
+zsh-autosuggestions
+zsh-completions
+zsh-history-substring-search
+zsh-syntax-highlighting
+zsh-theme-powerlevel10k

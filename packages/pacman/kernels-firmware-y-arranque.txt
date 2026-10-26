@@ -2,7 +2,7 @@
 # Kernels de CachyOS, firmware, initramfs y arranque del sistema.
 #
 # Categoria: kernels-firmware-y-arranque
-# Paquetes: 26
+# Paquetes: 24
 #
 # Instalables con: sudo pacman -S --needed amd-ucode cachyos-grub-theme cachyos-hooks ...
 amd-ucode
@@ -13,9 +13,7 @@ cachyos-keyring
 cachyos-mirrorlist
 cachyos-plymouth-bootanimation
 cachyos-plymouth-theme
-cachyos-rate-mirrors
 cachyos-v3-mirrorlist
-cachyos-v4-mirrorlist
 efibootmgr
 efitools
 fwupd

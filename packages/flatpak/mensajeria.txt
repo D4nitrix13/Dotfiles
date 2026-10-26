@@ -1,0 +1,8 @@
+# Mensajeria
+# Clientes de mensajeria de escritorio instalados como Flatpak.
+#
+# Categoria: mensajeria
+# Paquetes: 1
+#
+# Instalables con: flatpak install -y flathub com.rtosta.zapzap
+com.rtosta.zapzap

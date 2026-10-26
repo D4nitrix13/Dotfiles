@@ -93,6 +93,8 @@ DESCRIPCIONES = {
     "juegos-y-graficos": "Controladores graficos, Vulkan, OpenCL, Wine y juegos.",
     "sistema-y-mantenimiento": "Mantenimiento base del sistema, utilidades core y actualizacion de paquetes.",
     "teclado-y-entradas": "Metodos de entrada, distribucion de teclado y peripherals.",
+    "shell-zsh": "El interprete zsh con su gestor de plugins y los complementos que activan el resaltado, el autosuggest y la busqueda en el historial.",
+    "mensajeria": "Clientes de mensajeria de escritorio.",
     "utilidades-varias": "Paquetes sin una categoria mas especifica; revisar y reubicar.",
     "editores-y-servidores-de-lenguaje": "Servidores de lenguaje y herramientas de edicion instaladas con npm.",
     "herramientas-y-servidores": "Utilidades de desarrollo instaladas con npm.",
@@ -102,6 +104,7 @@ DESCRIPCIONES = {
     "terminal-interactivo": "Interpretadores interactivos de Python.",
     "criptografia": "Utilidades de cifrado y gestion de secretos.",
     "utilidades-de-red": "Aplicaciones de red instaladas como Flatpak.",
+    "mensajeria": "Clientes de mensajeria de escritorio instalados como Flatpak.",
     "editores-y-escritorio": "Editores y componentes de escritorio del AUR.",
     "contrasenas-y-seguridad": "Gestores de contrasenas disponibles en el AUR.",
     "utilidades-y-terminal": "Utilidades graficas y de terminal disponibles en el AUR.",
@@ -197,7 +200,7 @@ REGLAS: dict[str, list[tuple[str, list[str]]]] = {
         ]),
         ("navegadores-y-comunicacion", [
             r"^firefox", r"^chromium", r"^epiphany", r"^signal-desktop", r"^thunderbird",
-            r"^filezilla", r"^discord", r"^zoom", r"^telegram", r"^element",
+            r"^filezilla", r"^zoom", r"^telegram", r"^element",
         ]),
         ("desarrollo-y-editores", [
             r"^neovim", r"^vim$", r"^emacs", r"^visual-studio-code", r"^vscode-",
@@ -278,6 +281,12 @@ REGLAS: dict[str, list[tuple[str, list[str]]]] = {
         ("teclado-y-entradas", [
             r"^fcitx5", r"^xsel$", r"^ibus",
         ]),
+        ("shell-zsh", [
+            r"^zsh$", r"^zsh-", r"^oh-my-zsh-git$",
+        ]),
+        ("mensajeria", [
+            r"^discord$",
+        ]),
     ],
     "yay": [
         ("editores-y-escritorio", [
@@ -317,6 +326,7 @@ REGLAS: dict[str, list[tuple[str, list[str]]]] = {
     ],
     "flatpak": [
         ("utilidades-de-red", [r"^es\.danirod\.Cartero$"]),
+        ("mensajeria", [r"^com\.rtosta\.zapzap$"]),
     ],
 }
 

@@ -64,6 +64,8 @@ TDD mode: not applicable. The deliverable is a shell script and a report, not ap
 - [x] T12 — Move Homebrew to the end of the PATH in the session scripts
 - [x] T13 — Drop the duplicated and unbuildable AUR packages
 - [x] T14 — Audit the installed set for redundant tools and purge the noise
+- [x] T15 — Restore the tools the owner actually uses, drop the CachyOS presets
+- [x] T16 — Remove the Omarchy webapp launcher, install real WhatsApp and Discord
 
 ## Acceptance criteria
 
@@ -223,6 +225,47 @@ Every reference was repointed before the removal:
 The manifests went from 464 to 443 packages. 21 of the removed packages were
 in the manifest; the other 9 were dependencies of `cachyos-zsh-config` and
 leave with it.
+
+### Second pass of the redundancy audit
+
+The owner corrected the first pass: several packages marked as redundant were
+in daily use.
+
+- Restored to the manifests: nano, nano-syntax-highlighting, imv, htop and
+  glances. The panel widget runs htop again.
+- The zsh stack was not in the manifest because it was a dependency of
+  `cachyos-zsh-config`. It is now declared in a new `shell-zsh` category,
+  since the owner uses zsh.
+- `cachyos-zsh-config` was replaced by a real `~/.zshrc` in this repository
+  that does the same thing: p10k instant prompt, oh-my-zsh with the git, fzf
+  and extract plugins, the history settings, the aliases, the four
+  complement plugins, the pkgfile command-not-found and the user's own
+  `~/.p10k.zsh`.
+- The CachyOS presets that are safe to drop: `cachyos-fish-config` (the
+  owner's `config.fish` is autonomous and does not source it),
+  `cachyos-hello`, `cachyos-wallpapers` (the owner has their own),
+  `cachyos-packageinstaller`, `cachyos-v4-mirrorlist` (the v4 repository is
+  not configured) and `cachyos-rate-mirrors` (no script uses it).
+- The CachyOS packages that stay are infrastructure, not presets:
+  `cachyos-keyring` signs the repositories, `cachyos-mirrorlist` and
+  `cachyos-v3-mirrorlist` are included by `pacman.conf`, `cachyos-hooks`
+  carries the branding and initramfs hooks, the plymouth themes draw the
+  boot screen, `cachyos-settings` pulls ananicy and `cachyos-drm-awaiter`
+  chains the DRM modules.
+
+### Omarchy webapps
+
+`omarchy-launch-webapp` was the launcher for 13 webapps: Basecamp, ChatGPT,
+Discord, Figma, Fizzy, GitHub, Google Contacts, Google Maps, Google Messages,
+Google Photos, WhatsApp, X and YouTube. No live configuration used it; only
+the desktop entries did. The launcher and those 13 desktop files were removed
+together, so nothing was left pointing at a missing binary.
+
+The owner chose ZapZap for WhatsApp, the most complete and best maintained of
+the three clients on Flathub, and the official `discord` package from the
+`extra` repository for Discord. Discord was missing from the manifests even
+though the Qtile binding launches `/bin/discord`, so it was declared in a new
+`mensajeria` category.
 
 ### Verification evidence
 
