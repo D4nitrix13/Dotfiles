@@ -61,6 +61,14 @@ if /usr/bin/pgrep -x picom >/dev/null 2>&1; then
 fi
 /bin/picom --config "$HOME/.config/picom/picom.conf" &
 
+# Daemon de Flameshot
+# Sin el daemon la GUI interactiva no tiene servicio y el icono de la bandeja
+# no aparece. El metodo de captura X11 nativo esta activado en
+# ~/.config/flameshot/flameshot.ini, porque qtile no puede usar el portal XDG.
+if ! /usr/bin/pgrep -x flameshot >/dev/null 2>&1; then
+  /usr/sbin/flameshot >/dev/null 2>&1 &
+fi
+
 # Interfaz de red para el widget de la barra
 # Se escribe en interface.txt como override explicito. Si no se puede detectar,
 # no se escribe nada y no se rompe nada.
