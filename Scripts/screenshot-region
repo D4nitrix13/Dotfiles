@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Interactive region screenshot for X11 environments.
+#
+# Flameshot cannot complete a capture in this session: its daemon stays
+# registered on the session bus and keeps answering X events, but the capture
+# never finishes and every subcommand exits with code 0 without writing a
+# file. ImageMagick "import" provides the same region selection and does work.
+#
+# It relies on X11 utilities:
+# - import: selects a region interactively and writes it as PNG
+# - xclip: copies data to the X11 clipboard
+
+# Directory where screenshots will be stored
+DIRECTORY="$HOME/Images/Screenshots"
+
+# Create the directory if it does not exist
+/bin/mkdir -p "$DIRECTORY"
+
+# Temporary file for the selection, moved into place once a region is picked.
+# Import writes over an existing file, so the file is created empty on purpose.
+TEMPORARY="$(/usr/bin/mktemp --suffix=.png)"
+
+# The temporary file must not survive an interrupted selection
+trap '/bin/rm -f "$TEMPORARY"' EXIT
+
+# Ask the user to select the region and write it to the temporary file.
+# A cancelled selection leaves no usable file and exits without an error.
+if ! /usr/bin/import "$TEMPORARY"; then
+  exit 0
+fi
+
+if [ ! -s "$TEMPORARY" ]; then
+  exit 0
+fi
+
+# Generate a unique filename for the screenshot.
+# The filename includes:
+# - current date and time: YYYY-MM-DD-HHMMSS
+# - "_region" suffix to indicate the capture method
+#
+# Example:
+# 2026-05-27-153010_region.png
+FILENAME="$(/bin/date +%Y-%m-%d-%H%M%S)_region.png"
+
+/bin/mv "$TEMPORARY" "$DIRECTORY/$FILENAME"
+
+# Copy the screenshot image to the X11 clipboard as PNG
+/usr/bin/xclip -selection clipboard -t image/png -i "$DIRECTORY/$FILENAME"
+

@@ -26,4 +26,4 @@ FILENAME="$(/bin/date +%Y-%m-%d-%H%M%S)_$(/bin/xdpyinfo | /bin/awk '/dimensions:
 /bin/scrot "$DIRECTORY/$FILENAME"
 
 # Copy the screenshot image to the X11 clipboard as PNG
-/bin/xclip -selection clipboard -t image/png -i "$DIRECTORY/$FILENAME"
+/usr/bin/xclip -selection clipboard -t image/png -i "$DIRECTORY/$FILENAME"

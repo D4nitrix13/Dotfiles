@@ -103,8 +103,8 @@ bindings: List[KeyBinding] = [
     # Screenshot With Scrot
     ([mod], "s", lazy.spawn(f"{home}/Scripts/screenshots-x11")),
 
-    # Screenshot With Flameshot
-    ([mod, "shift"], "s", lazy.spawn("/bin/flameshot gui")),
+        # Screenshot with interactive region selection
+        ([mod, "shift"], "s", lazy.spawn(f"{home}/Scripts/screenshot-region")),
 
     # ([mod, "shift"], "s", lazy.spawn("/bin/scrot -s")),
     # ------------ Hardware Configs ------------
