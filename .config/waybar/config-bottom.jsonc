@@ -22,8 +22,7 @@
     "on-click": "hyprctl dispatch toggleactivewindow",
     "on-click-middle": "hyprctl dispatch cyclenext active",
     "on-click-right": "hyprctl dispatch fullscreen 1",
-    "tooltip": true,
-    "tooltip-format": "{title}\n\n{class}",
+    "tooltip": false,
     "separate-outputs": true
   }
 }
