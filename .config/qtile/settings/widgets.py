@@ -149,7 +149,11 @@ def powerline(fg: str = "light", bg: str = "dark") -> widget.TextBox:
         **base(fg, bg),
         text="",  # Icon: nf-oct-triangle_left
         fontsize=metrics.POWERLINE_FONTSIZE,
-        # padding=-1,
+        # El padding por defecto de TextBox es fontsize // 2. Con 56 pixels
+        # serian 28 a cada lado y el separador mediria 111 pixels de los que
+        # solo 23 son el triangulo: el resto es espacio vacio. A cero, el
+        # separador se ajusta al glifo.
+        padding=0,
     )
 
 
