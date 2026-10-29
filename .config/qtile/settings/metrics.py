@@ -38,9 +38,11 @@ GROUP_MARGIN_Y: int = 2
 # Twenty-nine pixels balances the Nerd Font icons against the 28-pixel text.
 # Those glyphs carry more internal whitespace, so they need a point more.
 ICON_FONTSIZE: int = 29
-# Fifty-six pixels makes the separator triangle 29 pixels tall, which is 81
-# percent of the panel. The octicon triangle only inks 53 percent of its font
-# size, so matching the font size to the bar height is not enough.
-POWERLINE_FONTSIZE: int = 56
+# Thirty pixels makes the separator triangle fill the panel height: the
+# powerline glyph (U+E0B2) inks at 118 percent of its font size, so 30 pixels
+# yields a 36-pixel-tall triangle. The previous octicon triangle (U+EB6F)
+# only inked 53 percent and carried 16-pixel side bearings that rendered as
+# visible gaps between the triangle and its segment.
+POWERLINE_FONTSIZE: int = 30
 # One pixel adds minimal spacing without increasing the effective text height.
 WIDGET_PADDING: int = 1
